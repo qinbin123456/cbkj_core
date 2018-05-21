@@ -17,10 +17,10 @@ public class AdminService implements UserDetailsService {
     private AdminInfoMapper adminInfoMapper;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        AdminInfo hr = adminInfoMapper.loadUserByUsername(username);
-        if (hr == null) {
+        AdminInfo admin = adminInfoMapper.loadUserByUsername(username);
+        if (admin == null) {
             throw new UsernameNotFoundException("用户名不对");
         }
-        return hr;
+        return admin;
     }
 }
