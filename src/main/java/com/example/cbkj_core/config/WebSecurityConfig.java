@@ -1,6 +1,7 @@
 package com.example.cbkj_core.config;
 
 import com.example.cbkj_core.common.AdminUtils;
+import com.example.cbkj_core.common.MD5Util;
 import com.example.cbkj_core.service.AdminService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -46,13 +48,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(adminService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(adminService).passwordEncoder(new PasswordEncoder(){
+
+            @Override
+            public String encode(CharSequence rawPassword) {
+                return MD5Util.encode((String)rawPassword);
+            }
+
+            @Override
+            public boolean matches(CharSequence rawPassword, String encodedPassword) {
+                return encodedPassword.equals((String)rawPassword);
+            }}); //user Details Service验证
     }
 
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/backstage/**","/common/**","/css/**","/images/**","/js/**","/js_lib/**","/main/**","/templates/**");
+        web.ignoring().antMatchers("/backstage/**","/common/**",
+                "/css/**","/images/**","/js/**","/js_lib/**","/main/**","/templates/**");
     }
 
     @Override
@@ -65,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         return o;
                     }
                 }).and().formLogin().loginPage("/loginP")
-                .loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password")
+                .loginProcessingUrl("/login").usernameParameter("name").passwordParameter("pwd").defaultSuccessUrl("/toMain")
                 .permitAll().failureHandler(new AuthenticationFailureHandler() {
             @Override
             public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
@@ -73,10 +86,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 PrintWriter out = httpServletResponse.getWriter();
                 StringBuffer sb = new StringBuffer();
                 sb.append("{\"status\":\"error\",\"msg\":\"");
+                System.out.println(e.fillInStackTrace());
                 if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
                     sb.append("用户名或密码输入错误，登录失败!");
                 } else if (e instanceof DisabledException) {
-                    sb.append("账户被禁用，登录失败，请联系管理员!");
+                    sb.append("账户被禁用，请联系管理员!");
                 } else {
                     sb.append("登录失败!");
                 }

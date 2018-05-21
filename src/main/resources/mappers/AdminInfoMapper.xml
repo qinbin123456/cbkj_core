@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.cbkj_core.mapper.AdminInfoMapper">
+
   <resultMap id="BaseResultMap" type="com.example.cbkj_core.beans.AdminInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
@@ -14,13 +15,13 @@
   </resultMap>
 
   <resultMap id="lazyLoadRoles" type="com.example.cbkj_core.beans.AdminInfo" extends="BaseResultMap">
-    <collection property="roles" ofType="com.example.cbkj_core.beans.AdminRule" select="com.example.cbkj_core.mapper.AdminInfoMapper.getRolesByAdminId"
-                column="{rid=id}">
+    <collection property="roles" ofType="com.example.cbkj_core.beans.AdminRule" select="getRolesByAdminId"
+                column="id">
     </collection>
   </resultMap>
 
-  <select id="getRolesByAdminId" resultMap="lazyLoadRoles">
-     select rid, rname, rdescr, create_date, admin_id, rname_zh from admin_rule where rid=#{rid}
+  <select id="getRolesByAdminId" resultType="AdminRule">
+     select r.* from admin_info_rule ar,admin_rule r where ar.rid = r.rid AND r.rid=#{id}
 
   </select>
 

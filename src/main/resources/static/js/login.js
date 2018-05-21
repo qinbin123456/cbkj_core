@@ -44,14 +44,14 @@ layui.use(['layer', 'form'], function () {
             $.cookie("name_", param.name, {expires: 7});
             $.cookie("pwd_", param.pwd, {expires: 7});
         }
-        window.location.href = "toMain";
-        // $.post("subLogin", param, function (result) {
-        //     if (result.code == 0) {
-        //         $("#cc")[0].click();
-        //     } else {
-        //         layer.msg(result.msg);
-        //     }
-        // }, "json");
+        $(".msg").html("");
+        $.post("login", param, function (result) {
+            if(result.status != "success"){
+                $(".msg").html(result.msg);
+            }else{//登录成功
+                window.location.href = "toMain";
+            }
+        }, "json");
     });
 
 });

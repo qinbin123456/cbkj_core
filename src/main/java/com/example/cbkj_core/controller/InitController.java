@@ -12,4 +12,9 @@ public class InitController {
         return "login";
     }
 
+    @RequestMapping("toMain")
+    public String toMain(){
+        return "main";
+    }
+
 }
