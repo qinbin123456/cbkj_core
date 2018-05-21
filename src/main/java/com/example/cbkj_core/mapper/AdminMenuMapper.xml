@@ -15,7 +15,7 @@
     <collection property="rules" ofType="com.example.cbkj_core.beans.AdminRule">
       <id column="rid" property="rid"/>
       <result column="rname" property="rname"/>
-      <result column="rname_zh" property="rnameZh"/>
+      <result column="rname_zh" property="rname_zh"/>
     </collection>
   </resultMap>
   <sql id="Base_Column_List">
@@ -23,7 +23,7 @@
   </sql>
 
   <select id="getAllMenu" resultMap="BaseResultMap">
-        select m.*,r.rid,r.rname,r.name_zh from admin_menu m
+        select m.*,r.rid,r.rname,r.rname_zh from admin_menu m
         left join admin_rule_menu mr on m.`mid`= mr.`mid`
         left join admin_rule r on mr.`rid`= r.`rid` WHERE m.`enabled`=2
   </select>

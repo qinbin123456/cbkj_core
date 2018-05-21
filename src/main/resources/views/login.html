@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="pragma" content="no-cache"/>
+    <meta http-equiv="cache-control" content="no-cache"/>
+    <meta http-equiv="expires" content="0"/>
+    <meta name="renderer" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <title th:replace="../templates/common :: commonHeand('管理员登录')"></title>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/login.css}"/>
+    <script type="text/javascript" charset="UTF-8" th:src="@{/js/login.js}"></script>
+    <script type="text/javascript" charset="UTF-8" th:src="@{/js_lib/md5.js}"></script>
+
+</head>
+<body class="beg-login-bg">
+<div class="beg-login-box">
+    <header>
+        <h1>云核心系统_V2</h1>
+    </header>
+    <div class="beg-login-main">
+        <div class="layui-form">
+            <input name="__RequestVerificationToken" type="hidden" value="fkfh8D89BFqTdrE2iiSdG_L781RSRtdWOH411poVUWhxzA5MzI8es07g6KPYQh9Log-xf84pIR2RIAEkOokZL3Ee3UKmX0Jc8bW8jOdhqo81"/>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe612;</i>
+                </label>
+                <input type="text" name="userName" lay-verify="userName" autocomplete="off" placeholder="管理员名称" class="layui-input"/>
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe642;</i>
+                </label>
+                <input type="password" name="password" lay-verify="password" autocomplete="off" placeholder="管理员密码" class="layui-input"/>
+            </div>
+            <div class="layui-form-item">
+                <div class="beg-pull-left beg-login-remember">
+                    <label style="color: #808080;">记住帐号？</label>
+                    <input type="checkbox" name="rememberMe" lay-skin="switch" title="记住账号"/>
+                </div>
+                <div class="beg-pull-right">
+                    <button class="layui-btn layui-btn-primary" lay-submit="true" lay-filter="login">
+                        登录
+                    </button>
+
+                </div>
+                <div class="beg-clear" style="color:#ccc;margin-top:10px;"></div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>萌都社科技有限公司</p>
+    </footer>
+</div>
+
+</body>
+</html>
