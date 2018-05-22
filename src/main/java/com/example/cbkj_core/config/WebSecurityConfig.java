@@ -86,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 PrintWriter out = httpServletResponse.getWriter();
                 StringBuffer sb = new StringBuffer();
                 sb.append("{\"status\":\"error\",\"msg\":\"");
-                System.out.println(e.fillInStackTrace());
+                System.out.println("登录发生错误："+e.fillInStackTrace());
                 if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
                     sb.append("用户名或密码输入错误，登录失败!");
                 } else if (e instanceof DisabledException) {

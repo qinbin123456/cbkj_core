@@ -15,12 +15,35 @@
     <collection property="rules" ofType="com.example.cbkj_core.beans.AdminRule">
       <id column="rid" property="rid"/>
       <result column="rname" property="rname"/>
-      <result column="rname_zh" property="rname_zh"/>
+      <result column="rname_zh" property="rnameZh"/>
     </collection>
   </resultMap>
   <sql id="Base_Column_List">
     mid, mname, url, path, iconCls, enabled, parent_mid, create_date, cteate_id
   </sql>
+
+  <resultMap id="menuMap" type="Menu">
+      <id column="pid" jdbcType="INTEGER" property="pid" ></id>
+      <result column="title" jdbcType="VARCHAR" property="title"></result>
+      <result column="url" jdbcType="VARCHAR" property="url"></result>
+      <result column="href" jdbcType="VARCHAR" property="href"></result>
+      <result column="icon" jdbcType="VARCHAR" property="icon"></result>
+      <result column="parent_mid" jdbcType="VARCHAR" property="parent_mid"></result>
+
+  </resultMap>
+
+  <select id="getMenuByPID" parameterType="Map" resultMap="menuMap">
+       select m.mid pid, m.mname title, m.url, m.path as href, m.iconCls icon, m.parent_mid from admin_menu m
+       ,admin_rule_menu rm
+       ,admin_info_rule ur
+       ,admin_info u
+       where m.mid = rm.mid  and rm.rid = ur.rid and ur.admin_id = #{uid} and m.enabled =2
+
+       <if test="parent_mid != null">
+         and m.parent_mid = #{parent_mid}
+       </if>
+       GROUP BY m.mid
+  </select>
 
   <select id="getAllMenu" resultMap="BaseResultMap">
         select m.*,r.rid,r.rname,r.rname_zh from admin_menu m

@@ -1,5 +1,6 @@
 package com.example.cbkj_core.config;
 
+import com.alibaba.druid.util.StringUtils;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
@@ -16,12 +17,16 @@ import java.io.PrintWriter;
 @Component
 public class AuthenticationAccessDeniedHandler implements AccessDeniedHandler {
     @Override
-    public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
-        httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        httpServletResponse.setContentType("application/json;charset=UTF-8");
-        PrintWriter out = httpServletResponse.getWriter();
-        out.write("{\"status\":\"error\",\"msg\":\"权限不足，请联系管理员!\"}");
-        out.flush();
-        out.close();
+    public void handle(HttpServletRequest req, HttpServletResponse res, AccessDeniedException e) throws IOException, ServletException {
+        if(!StringUtils.isEmpty(req.getHeader("x-requested-with")) && req.getHeader("x-requested-with").equals("XMLHttpRequest")){
+            res.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            res.setContentType("application/json;charset=UTF-8");
+            PrintWriter out = res.getWriter();
+            out.write("{\"status\":\"error\",\"msg\":\"权限不足，请联系管理员!\"}");
+            out.flush();
+            out.close();
+        }else{
+            res.sendRedirect("/403");
+        }
     }
 }
