@@ -57,6 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
             @Override
             public boolean matches(CharSequence rawPassword, String encodedPassword) {
+
                 return encodedPassword.equals((String)rawPassword);
             }}); //user Details Service验证
     }

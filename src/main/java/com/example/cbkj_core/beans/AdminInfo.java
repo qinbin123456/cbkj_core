@@ -85,6 +85,9 @@ public class AdminInfo implements UserDetails {
     @JsonIgnore
     @Override
     public boolean isEnabled() {
+        if(getStatus()==2){
+            return false;
+        }
         return true;
     }
 
