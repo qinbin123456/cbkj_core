@@ -160,4 +160,16 @@
     from admin_info
     where name = #{username}
   </select>
+
+  <select id="getPageDatas" parameterType="AdminInfo" resultType="Map">
+      SELECT a.id,a.name,a.password,a.sex,a.status,a.create_date,a.create_id,a.update_date,a.last_ip
+     ,GROUP_CONCAT(r.rname_zh) rnamess FROM `admin_info` a
+     ,admin_info_rule ar,admin_rule r WHERE a.id=ar.admin_id AND ar.rid = r.rid
+     <if test="name != null">
+       and a.name like CONCAT('%',#{name},'%')
+
+     </if>
+     GROUP BY a.id
+
+  </select>
 </mapper>

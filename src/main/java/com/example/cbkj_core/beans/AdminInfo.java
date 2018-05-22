@@ -22,7 +22,7 @@ public class AdminInfo implements UserDetails {
 
     private String sex;
 
-    private Integer status;
+    private Integer status=1;
 
     private Date createDate;
 
@@ -37,10 +37,14 @@ public class AdminInfo implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        for (AdminRule role : roles) {
-            authorities.add(new SimpleGrantedAuthority(role.getRname()));
+        if(null != roles && roles.size()>0){
+            for (AdminRule role : roles) {
+                authorities.add(new SimpleGrantedAuthority(role.getRname()));
+            }
+            return authorities;
         }
-        return authorities;
+        return null;
+
     }
 
     @Override
@@ -85,6 +89,7 @@ public class AdminInfo implements UserDetails {
     @JsonIgnore
     @Override
     public boolean isEnabled() {
+
         if(getStatus()==2){
             return false;
         }

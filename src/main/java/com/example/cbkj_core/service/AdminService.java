@@ -9,6 +9,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Map;
+
 @Service
 @Transactional
 public class AdminService implements UserDetailsService {
@@ -22,5 +25,10 @@ public class AdminService implements UserDetailsService {
             throw new UsernameNotFoundException("用户名不对");
         }
         return admin;
+    }
+
+    public List<Map<String,Object>> getPageDatas(AdminInfo admin) {
+
+        return adminInfoMapper.getPageDatas(admin);
     }
 }
