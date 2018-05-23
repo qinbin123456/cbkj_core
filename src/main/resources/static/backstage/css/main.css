@@ -1,1 +1,4 @@
 .layui-layout-admin .layui-body{bottom:0px;}
+.layui-nav .layui-nav-mored, .layui-nav-itemed>a .layui-nav-more{margin-top: -9px;
+    border-style: dashed dashed solid;
+    border-color: transparent transparent #000;}

@@ -108,4 +108,13 @@
     // For convenience...  
     Date.prototype.format = function (mask, utc) {  
         return dateFormat(this, mask, utc);  
-    };  
+    };
+
+    function dateFormatter(v){
+        if(v != null && v != ''){
+            var date=new Date(v);
+            return date.format('yyyy-mm-dd HH:MM:ss');
+        }else{
+            return "暂无";
+        }
+    }

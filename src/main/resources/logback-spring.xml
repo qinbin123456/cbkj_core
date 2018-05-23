@@ -184,6 +184,7 @@
     <!--<logger name="sun.rmi.transport" level="WARN"/>-->
     <logger name="org.springframework.core" level="ERROR"></logger>
     <logger name="org.hibernate" level="ERROR"></logger>
+    <logger name="com.example.cbkj_core.service" level="ERROR"></logger>
     <!--<logger name="jdbc.connection" level="ERROR"/>-->
     <!--<logger name="jdbc.resultset" level="ERROR"/>-->
     <!--<logger name="jdbc.resultsettable" level="INFO"/>-->

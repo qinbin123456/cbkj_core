@@ -11,6 +11,7 @@ import org.springframework.security.web.access.intercept.FilterInvocationSecurit
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 
+import javax.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,11 +28,20 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
         //获取请求地址
-        String requestUrl = ((FilterInvocation) o).getRequestUrl();
+        FilterInvocation invocation = ((FilterInvocation) o);
+
+        String requestUrl = invocation.getRequestUrl();
         if ("/loginP".equals(requestUrl)) {
             return null;
         }
-        List<AdminMenu> allMenu = adminMenuService.getAllMenu();
+        HttpSession session = invocation.getRequest().getSession();
+        List<AdminMenu> allMenu = null;
+        if(null == session.getAttribute(Constont.MENUS)){
+            allMenu = adminMenuService.getAllMenu();
+            session.setAttribute(Constont.MENUS,allMenu);
+        }else{
+            allMenu = (List<AdminMenu>) session.getAttribute(Constont.MENUS);
+        }
         for (AdminMenu menu : allMenu) {
             if (antPathMatcher.match(menu.getUrl(), requestUrl) && menu.getRules().size()>0) {
                 List<AdminRule> roles = menu.getRules();

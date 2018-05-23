@@ -34,9 +34,9 @@ body{
 	width: calc(100% - 203px);
 	width: -moz-calc(100% - 203px);
 	width: -webkit-calc(100% - 203px);
-	height: calc(100% - 100px);
-	height: -moz-calc(100% - 100px);
-	height: -webkit-calc(100% - 100px);
+	height: calc(100% - 65px);
+	height: -moz-calc(100% - 65px);
+	height: -webkit-calc(100% - 65px);
 	margin: 0px;
 	overflow-x:hidden;
 	overflow-y:auto;
@@ -396,7 +396,7 @@ ul.layui-tab-title .layui-this:hover{
 	color:#fff;
 }
 .layui-tab .larry-title-box .title-right{
-    width: 165px;
+    width: 41px;
     height: 40px;
     position: absolute;
     top: 0px;
@@ -408,7 +408,7 @@ ul.layui-tab-title .layui-this:hover{
 .layui-tab .larry-title-box .title-right .go-right{
 	position: absolute;
 	top: 0px;
-	left: 0px;
+	right: 0px;
 }
 
 .layui-tab .larry-title-box .title-right .refresh{

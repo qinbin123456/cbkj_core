@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("sys/sysAdmin")
+@RequestMapping("sys/admin")
 public class SysAdminController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class SysAdminController {
     }
 
     /**
-     * 测试分页数据
+     * 分页数据
      * @param admin
      * @param page
      * @return
@@ -38,11 +38,8 @@ public class SysAdminController {
     @RequestMapping(value = "/getPages")
     @ResponseBody
     public Object getApps(AdminInfo admin,Page page) {
-        PageHelper.startPage(page.getPage(), page.getRows());
-        List<Map<String,Object>> lis = adminService.getPageDatas(admin);
-
-        PageInfo<Map<String,Object>> pageInfo = new PageInfo<>(lis);
-        return pageInfo;
+        Object obj = adminService.getPageDatas(admin,page);
+        return obj;
     }
 
 

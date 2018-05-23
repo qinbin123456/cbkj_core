@@ -58,6 +58,11 @@ public class AdminMenuService {
         return resultLis;
     }
 
+    /**
+     * 只取三级菜单
+     * @param lis
+     * @return
+     */
     private Map<Integer,List<Menu>> getChildren(List<Menu> lis){
         Map<Integer,List<Menu>> resultM = new HashMap<Integer,List<Menu>>();
         for(Menu childrenM : lis){

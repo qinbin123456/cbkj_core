@@ -35,7 +35,7 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
 		AdminInit();
 		// 绑定导航数据
 		$.ajaxSettings.async = false;
-        $.getJSON('sys/menu/getTopMenu?t=' + new Date(), {
+        $.getJSON('public/getTopMenu?t=' + new Date(), {
             parent_id: '0'
         }, function (result) {
             larry.set({
@@ -53,10 +53,10 @@ layui.use(['elements', 'jquery', 'layer', 'larry', 'navtab', 'form', 'common'], 
 			$that.on('click', function () {
 				var id = $that.data('pid');
 				$.ajaxSettings.async = false;
-                $.getJSON('sys/menu/getTopMenu?t' + new Date(), {
+                $.getJSON('public/getTopMenu?t' + new Date(), {
                     parent_id: id
                 }, function (result) {
-                	console.log(result);
+
                     larry.set({
                         elem: '#larrySideNav',
                         data: result,

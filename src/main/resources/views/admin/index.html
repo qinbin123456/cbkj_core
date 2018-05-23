@@ -10,17 +10,34 @@
 
     <title th:replace="../templates/common :: commonHeand('管理者首页')"></title>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/listIndex.css}"/>
-    <script type="text/javascript" charset="UTF-8" th:src="@{/js/sys/adminIndex.js}"></script>
+    <script type="text/javascript" charset="UTF-8" th:src="@{/sys/adminIndex.js}"></script>
 
 </head>
 <body>
-   <div class="demoTable">
-    搜索ID：
-    <div class="layui-inline">
-        <input class="layui-input" name="id" id="demoReload" autocomplete="off">
-    </div>
-    <button class="layui-btn" data-type="reload">搜索</button>
+    <div class="btns">
+        <div class="lefts">
+            <!--是否细粒度控制 细粒度控制放入数据库中动态加载出来-->
+            <div class="layui-btn " data-type="add_"><i class="layui-icon">&#xe654;</i> 添加</div>
+            <div class="layui-btn " data-type="update_"><i class="layui-icon">&#xe642;</i>修改</div>
+            <div class="layui-btn " data-type="updatePwd_"><i class="iconfont_">&#xe908;</i>重置密码</div>
+            <div class="layui-btn " data-type="updateStatus_"><i class="iconfont_">&#xe742;</i>启用/禁用</div>
+            <div class="layui-btn " data-type="delete_"><i class="layui-icon"></i>删除</div>
+       </div>
+
+       <div class="seachTable">
+            管理员：
+            <div class="layui-inline">
+                <input class="layui-input" name="name" id="name" autocomplete="off">
+            </div>
+            <div class="layui-btn" data-type="reload"><i class="layui-icon">&#xe615;</i>搜索</div>
+
+       </div>
    </div>
-   <table class="layui-hide" id="admin"></table>
+
+   <div class="tableLy">
+       <table class="layui-hide" id="admin" lay-filter="adminTable"></table>
+   </div>
+
+
 </body>
 </html>

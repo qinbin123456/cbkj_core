@@ -71,6 +71,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        http.headers().frameOptions().disable();
+
         http.authorizeRequests().withObjectPostProcessor(new ObjectPostProcessor<FilterSecurityInterceptor>() {
                     @Override
                     public <O extends FilterSecurityInterceptor> O postProcess(O o) {
@@ -87,7 +90,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 PrintWriter out = httpServletResponse.getWriter();
                 StringBuffer sb = new StringBuffer();
                 sb.append("{\"status\":\"error\",\"msg\":\"");
-                System.out.println("登录发生错误："+e.fillInStackTrace());
                 if (e instanceof UsernameNotFoundException || e instanceof BadCredentialsException) {
                     sb.append("用户名或密码输入错误，登录失败!");
                 } else if (e instanceof DisabledException) {
