@@ -12,6 +12,11 @@
     <result column="create_id" jdbcType="INTEGER" property="createId" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="last_ip" jdbcType="VARCHAR" property="lastIp" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="name_zh" jdbcType="VARCHAR" property="nameZh" />
+    <result column="user_heand" jdbcType="VARCHAR" property="userHeand" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
   </resultMap>
 
   <resultMap id="lazyLoadRoles" type="com.example.cbkj_core.beans.AdminInfo" extends="BaseResultMap">
@@ -26,7 +31,7 @@
   </select>
 
   <sql id="Base_Column_List">
-    id, name, password, sex, status, create_date, create_id, update_date, last_ip
+    id, name, password, sex, status, create_date, create_id, update_date, last_ip,phone,address,name_zh,user_heand,email
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select
@@ -41,11 +46,12 @@
   <insert id="insert" parameterType="com.example.cbkj_core.beans.AdminInfo">
     insert into admin_info (id, name, password, 
       sex, status, create_date, 
-      create_id, update_date, last_ip
+      create_id, update_date, last_ip,phone,address,name_zh,user_heand,email
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{sex,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
       #{createId,jdbcType=INTEGER}, #{updateDate,jdbcType=TIMESTAMP}, #{lastIp,jdbcType=VARCHAR}
+      ,#{phone,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{nameZh,jdbcType=VARCHAR},#{userHeand,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.cbkj_core.beans.AdminInfo">
@@ -78,6 +84,21 @@
       <if test="lastIp != null">
         last_ip,
       </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="nameZh != null">
+        name_zh,
+      </if>
+      <if test="userHeand != null">
+        user_heand,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -106,6 +127,22 @@
       </if>
       <if test="lastIp != null">
         #{lastIp,jdbcType=VARCHAR},
+      </if>
+
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="nameZh != null">
+        #{nameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeand != null">
+        #{userHeand,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -136,6 +173,21 @@
       <if test="lastIp != null">
         last_ip = #{lastIp,jdbcType=VARCHAR},
       </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="nameZh != null">
+        name_zh = #{nameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="userHeand != null">
+        user_heand = #{userHeand,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -148,13 +200,17 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       create_id = #{createId,jdbcType=INTEGER},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
-      last_ip = #{lastIp,jdbcType=VARCHAR}
+      last_ip = #{lastIp,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      name_zh = #{nameZh,jdbcType=VARCHAR},
+      user_heand = #{userHeand,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
     where id = #{id,jdbcType=INTEGER}
   </update>
 
 
   <select id="loadUserByUsername" resultMap="lazyLoadRoles">
-
     select
     <include refid="Base_Column_List" />
     from admin_info
@@ -163,6 +219,7 @@
 
   <select id="getPageDatas" parameterType="AdminInfo" resultType="Map">
     SELECT a.id,a.name,a.password,a.sex,a.status,a.create_date,a.create_id,a.update_date,a.last_ip
+    ,a.phone,a.address,a.name_zh as nameZh,a.user_heand,a.email
     ,GROUP_CONCAT(r.rname_zh) rnamess,c.name createName FROM `admin_info` a
     ,admin_info_rule ar,admin_rule r,admin_info c  WHERE c.id = a.create_id AND a.id=ar.admin_id AND ar.rid = r.rid
      <if test="name != null">

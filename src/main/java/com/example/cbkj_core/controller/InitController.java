@@ -27,6 +27,7 @@ public class InitController {
     @RequestMapping("toMain")
     public String toMain(Model model){
         model.addAttribute("sysName",SYSNAME);
+        model.addAttribute("loginName",AdminUtils.getCurrentHr().getName());
         return "main";
     }
     /**

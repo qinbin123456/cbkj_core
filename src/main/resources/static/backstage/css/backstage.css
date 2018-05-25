@@ -121,7 +121,7 @@ body{
 	cursor: pointer;
 }
 .header-menu .layui-main .side-menu-switch span.switch:hover{
-	background: url('../images/menu_o.png') center center no-repeat;
+	background: url('../images/menu2.png') center center no-repeat;
 	/* background-color: #ffffff; */
 	background-size: 100%;
 }
@@ -157,7 +157,7 @@ body{
 	cursor: pointer;
 }
 .header-menu .layui-main ul.layui-nav li.layui-nav-item a i{	
-	line-height: 70px;
+	line-height: 65px;
 	padding-right: 1px;
 }
 .header-menu .layui-main  .layui-nav .layui-this{background-color: #000;/*#686C78 #393D49*/}
@@ -1155,3 +1155,6 @@ body iframe{
 	height: 0;
 	background-color: #3C8DBC;
 }
+
+.larryTheme-A .header-menu .layui-main ul.layui-nav li.layui-nav-item{
+	color: #ffffff;}

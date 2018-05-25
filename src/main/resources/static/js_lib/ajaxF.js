@@ -1,5 +1,4 @@
 $.ajaxSetup({
-    contentType:"application/x-www-form-urlencoded;charset=utf-8",
     complete:function(XMLHttpRequest,status){
         if(XMLHttpRequest.status == 403){
             window.location.href='403'

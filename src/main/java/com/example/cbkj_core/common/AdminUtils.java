@@ -8,6 +8,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
  */
 public class AdminUtils {
     public static AdminInfo getCurrentHr() {
-        return (AdminInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object obj =  SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(obj instanceof  AdminInfo){
+            return (AdminInfo) obj;
+        }else{
+            return null;
+        }
     }
 }

@@ -29,12 +29,14 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
         //获取请求地址
         FilterInvocation invocation = ((FilterInvocation) o);
+        HttpSession session = invocation.getRequest().getSession();
 
         String requestUrl = invocation.getRequestUrl();
         if ("/loginP".equals(requestUrl)) {
+            session.removeAttribute(Constont.MENUS);
             return null;
         }
-        HttpSession session = invocation.getRequest().getSession();
+
         List<AdminMenu> allMenu = null;
         if(null == session.getAttribute(Constont.MENUS)){
             allMenu = adminMenuService.getAllMenu();

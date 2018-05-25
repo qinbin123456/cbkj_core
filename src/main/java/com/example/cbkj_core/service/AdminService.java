@@ -1,6 +1,7 @@
 package com.example.cbkj_core.service;
 
 import com.example.cbkj_core.beans.AdminInfo;
+import com.example.cbkj_core.beans.ResEntity;
 import com.example.cbkj_core.common.Page;
 import com.example.cbkj_core.mapper.AdminInfoMapper;
 import com.github.pagehelper.PageHelper;
@@ -56,5 +57,10 @@ public class AdminService implements UserDetailsService {
             looger.error(getClass().getPackage().getName(),e);
         }
         return result;
+    }
+
+    public ResEntity insert(AdminInfo adminInfo) {
+        System.out.println(adminInfo.getName());
+        return new ResEntity("error","系统异常，测试重复提交",null);
     }
 }

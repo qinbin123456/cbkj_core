@@ -1,1 +1,3 @@
-body{margin:0px;padding:0px;text-align:center;color:red;}
+body{margin:0px;padding:0px;text-align:center;color:red;background-color:#ffffff;}
+.err_div{width:470px;height:300px;position: absolute;left:50%;top:50%;margin-left:-235px;
+    margin-top: -150px;}

@@ -15,9 +15,10 @@ layui.use('table', function(){
 
         }
         ,cols: [[//破除
-             {checkbox: true}
+            {checkbox: true}
             ,{field:'name',width:150, title: '管理员'}
-            ,{field:'sex',width:100, title: '性别', sort: true,templet:
+            ,{field:'phone',width:180,align:'center', title: '手机号码'}
+            ,{field:'sex',width:100, align:'center',title: '性别', sort: true,templet:
                     function(d){
                         if(d.sex == "M")
                             return "男";
@@ -27,7 +28,7 @@ layui.use('table', function(){
                             return "未知";
                     }
             }
-            ,{field:'status',width:100, title: '状态',templet:
+            ,{field:'status',width:100, align:'center',title: '状态',templet:
                     function(d){
                         if(d.status == "1")
                             return "正常";
@@ -69,7 +70,7 @@ layui.use('table', function(){
             var name = $('#name');
             //执行重载
             tableIns.reload({
-                 page: {curr: 1 }
+                page: {curr: 1 }
                 ,where: {
                     name:name.val()
                 }
@@ -77,7 +78,7 @@ layui.use('table', function(){
         },
         //新增
         add_:function(){
-            // updateRow(null,"新增管理员","new");
+            updateRow(null,"新增管理员","new");
         },
         update_:function(){
 
@@ -120,7 +121,7 @@ function updateRow(ids,title,type){
 
     var qb_upaddIndex = parent.layer.open({
         type: 2,
-        content:['admin/edit/to?ID='+ids, 'no'],
+        content:['admin/edit/toPage?ID='+ids, 'no'],
         title:title,
         area:["550px","540px"],
         id:"QB_UPDATE",
@@ -140,16 +141,20 @@ function updateRow(ids,title,type){
         ,yes: function(index, layero){
             var body = parent.layer.getChildFrame('body', index);
             var params = {};
+            var formBody = $(body).find(".layui-form");
 
-            var url = type === "new"?"admin/edit/insert":"admin/edit/update";
+            params.token = $(formBody).find("input[name='token']").val();
+            params.name = $(formBody).find("input[name='name']").val();
+            params.phone = $(formBody).find("input[name='phone']").val();
+            var url = type === "new"?"../../admin/edit/insert":"../../admin/edit/update";
 
-                $.post(url,params,function(result){
-                    if(result.success){
-                        parent.layer.close(qb_upaddIndex);
-                    }else{
-                        parent.layer.msg(result.errorMsg);
-                    }
-                },"json");
+            $.post(url,params,function(result){
+                if(result.success){
+                    parent.layer.close(qb_upaddIndex);
+                }else{
+                    parent.layer.msg(result.errorMsg);
+                }
+            },"json");
 
         },btn2: function(index, layero){
             //按钮【按钮二】的回调

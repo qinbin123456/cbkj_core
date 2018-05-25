@@ -101,19 +101,19 @@
 }
 
 .layui-btn-primary {
-    border: 1px solid #006633;
-    background-color: #006633;
+    border: 1px solid #3C8DBC;
+    background-color: #3C8DBC;
     color: #fff;
     border-radius: 4px;
     font-weight: 700;
 }
 .layui-btn-primary:hover {
-    border-color: #006633;
-    background-color: #006633;
+    border-color: #3C8DBC;
+    background-color: #3C8DBC;
     color: #fff;
 }
 .layui-form-onswitch {
-	border-color: #006633;
-	background-color: #006633;
+	border-color: #3C8DBC;
+	background-color: #3C8DBC;
 }
 .msg{width:100%;margin-top:10px;color:red;}

@@ -208,7 +208,7 @@
 
 
     <springProfile name="dev">
-        <root level="DEBUG">
+        <root level="ERROR">
             <!--<appender-ref ref="FILEINFO"/>-->
             <!--<appender-ref ref="FILEERROR"/>-->
             <appender-ref ref="CONSOLE"/>

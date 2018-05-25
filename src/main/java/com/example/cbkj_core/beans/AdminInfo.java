@@ -32,6 +32,16 @@ public class AdminInfo implements UserDetails {
 
     private String lastIp;
 
+    private String phone;
+
+    private String address;
+
+    private String nameZh;
+
+    private String userHeand;
+
+    private String email;
+
     private List<AdminRule> roles;
 
     @Override
@@ -97,8 +107,49 @@ public class AdminInfo implements UserDetails {
     }
 
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getNameZh() {
+        return nameZh;
+    }
+
+    public void setNameZh(String nameZh) {
+        this.nameZh = nameZh;
+    }
+
+    public String getUserHeand() {
+        return userHeand;
+    }
+
+    public void setUserHeand(String userHeand) {
+        this.userHeand = userHeand;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     /****************************************/
+
+
     public Integer getId() {
         return id;
     }

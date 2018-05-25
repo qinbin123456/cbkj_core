@@ -9,6 +9,9 @@ $(function () {
         $("input[name='rememberMe']").attr("checked","true");
         isPwd = false;
     }
+    if (window != top){
+        top.location.href = location.href;
+    }
 
 });
 
