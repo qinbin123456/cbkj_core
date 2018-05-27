@@ -18,6 +18,16 @@ public class AdminRule {
 
     private String rnameZh;
 
+    private String indexUrl;
+
+    public String getIndexUrl() {
+        return indexUrl;
+    }
+
+    public void setIndexUrl(String indexUrl) {
+        this.indexUrl = indexUrl;
+    }
+
     public String getRid() {
         return rid;
     }

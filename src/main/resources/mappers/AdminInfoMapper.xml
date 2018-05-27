@@ -26,7 +26,8 @@
   </resultMap>
 
   <select id="getRolesByAdminId" resultType="AdminRule">
-     select r.* from admin_info_rule ar,admin_rule r where ar.rid = r.rid AND ar.admin_id=#{id}
+     select r.rid, r.rname, r.rdescr, r.create_date, r.admin_id, r.rname_zh,r.index_url indexUrl from
+     admin_info_rule ar,admin_rule r where ar.rid = r.rid AND ar.admin_id=#{id}
 
   </select>
 

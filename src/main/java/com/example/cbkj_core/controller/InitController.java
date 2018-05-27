@@ -1,5 +1,6 @@
 package com.example.cbkj_core.controller;
 
+import com.example.cbkj_core.beans.AdminInfo;
 import com.example.cbkj_core.common.AdminUtils;
 import com.example.cbkj_core.service.AdminMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,10 @@ public class InitController {
 
     @RequestMapping("toMain")
     public String toMain(Model model){
+        AdminInfo adminInfo = AdminUtils.getCurrentHr();
         model.addAttribute("sysName",SYSNAME);
-        model.addAttribute("loginName",AdminUtils.getCurrentHr().getName());
+        model.addAttribute("loginName",adminInfo.getName());
+        model.addAttribute("indexUrl",adminInfo.getRoles().get(0).getIndexUrl());
         return "main";
     }
     /**

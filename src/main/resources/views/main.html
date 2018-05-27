@@ -23,6 +23,7 @@
 
 </head>
 <body class="larryTheme-A">
+<input type="hidden" name="indexUrl" th:value="${indexUrl}">
 <div class="layui-layout layui-layout-admin" id="layui_layout">
     <!-- 顶部区域 -->
     <div class="layui-header header-menu">
@@ -87,7 +88,7 @@
             <div class="layui-tab-content">
                 <input type="hidden" name ="type_" value="1"/>
                 <div class="layui-tab-item layui-show">
-                    <iframe class="larry-iframe" data-id='0' name="ifr_0" id='ifr0' src="http://www.jiuzhekan.com"></iframe>
+                    <iframe class="larry-iframe" data-id='0' name="ifr_0" id='ifr0' th:src="${indexUrl}" src="http://www.iqiyi.com/dianying"></iframe>
                 </div>
             </div>
         </div>

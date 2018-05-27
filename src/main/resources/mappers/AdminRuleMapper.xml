@@ -8,9 +8,10 @@
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="admin_id" jdbcType="VARCHAR" property="adminId" />
     <result column="rname_zh" jdbcType="VARCHAR" property="rnameZh" />
+    <result column="index_url" jdbcType="VARCHAR" property="indexUrl" />
   </resultMap>
   <sql id="Base_Column_List">
-    rid, rname, rdescr, create_date, admin_id, rname_zh
+    rid, rname, rdescr, create_date, admin_id, rname_zh,index_url
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -24,10 +25,11 @@
   </delete>
   <insert id="insert" parameterType="com.example.cbkj_core.beans.AdminRule">
     insert into admin_rule (rid, rname, rdescr, 
-      create_date, admin_id, rname_zh
+      create_date, admin_id, rname_zh,index_url
       )
     values (#{rid,jdbcType=VARCHAR}, #{rname,jdbcType=VARCHAR}, #{rdescr,jdbcType=VARCHAR},
       #{createDate,jdbcType=TIMESTAMP}, #{adminId,jdbcType=VARCHAR}, #{rnameZh,jdbcType=VARCHAR}
+      ,#{indexUrl,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.cbkj_core.beans.AdminRule">
@@ -51,6 +53,9 @@
       <if test="rnameZh != null">
         rname_zh,
       </if>
+      <if test="indexUrl != null">
+        index_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="rid != null">
@@ -70,6 +75,9 @@
       </if>
       <if test="rnameZh != null">
         #{rnameZh,jdbcType=VARCHAR},
+      </if>
+      <if test="indexUrl != null">
+        #{indexUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -91,6 +99,9 @@
       <if test="rnameZh != null">
         rname_zh = #{rnameZh,jdbcType=VARCHAR},
       </if>
+      <if test="indexUrl != null">
+        index_url = #{indexUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where rid = #{rid,jdbcType=VARCHAR}
   </update>
@@ -100,7 +111,8 @@
       rdescr = #{rdescr,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
       admin_id = #{adminId,jdbcType=VARCHAR},
-      rname_zh = #{rnameZh,jdbcType=VARCHAR}
+      rname_zh = #{rnameZh,jdbcType=VARCHAR},
+      index_url = #{indexUrl,jdbcType=VARCHAR}
     where rid = #{rid,jdbcType=VARCHAR}
   </update>
 </mapper>
