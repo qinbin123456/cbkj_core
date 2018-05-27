@@ -29,7 +29,7 @@ public class AdminMenuService {
      * @param parent
      * @return
      */
-    public Object getMenuByPID(Integer uid, int parent) {
+    public Object getMenuByPID(String uid, int parent) {
 
         Map<String,Object> params = new HashMap<String,Object>();
         if(parent == 0){

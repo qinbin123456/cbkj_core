@@ -3,13 +3,13 @@
 <mapper namespace="com.example.cbkj_core.mapper.AdminInfoMapper">
 
   <resultMap id="BaseResultMap" type="com.example.cbkj_core.beans.AdminInfo">
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="create_id" jdbcType="INTEGER" property="createId" />
+    <result column="create_id" jdbcType="VARCHAR" property="createId" />
     <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
     <result column="last_ip" jdbcType="VARCHAR" property="lastIp" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
@@ -33,26 +33,26 @@
   <sql id="Base_Column_List">
     id, name, password, sex, status, create_date, create_id, update_date, last_ip,phone,address,name_zh,user_heand,email
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from admin_info
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from admin_info
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.example.cbkj_core.beans.AdminInfo">
+  <insert id="insert"  parameterType="com.example.cbkj_core.beans.AdminInfo">
     insert into admin_info (id, name, password, 
       sex, status, create_date, 
       create_id, update_date, last_ip,phone,address,name_zh,user_heand,email
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
-      #{createId,jdbcType=INTEGER}, #{updateDate,jdbcType=TIMESTAMP}, #{lastIp,jdbcType=VARCHAR}
+    select #{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{sex,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER},now(),
+      #{createId,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{lastIp,jdbcType=VARCHAR}
       ,#{phone,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},#{nameZh,jdbcType=VARCHAR},#{userHeand,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR}
-      )
+      FROM DUAL WHERE NOT EXISTS(SELECT name FROM admin_info WHERE name = #{name,jdbcType=VARCHAR} );
   </insert>
   <insert id="insertSelective" parameterType="com.example.cbkj_core.beans.AdminInfo">
     insert into admin_info
@@ -102,7 +102,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
@@ -120,7 +120,7 @@
         #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="createId != null">
-        #{createId,jdbcType=INTEGER},
+        #{createId,jdbcType=VARCHAR},
       </if>
       <if test="updateDate != null">
         #{updateDate,jdbcType=TIMESTAMP},
@@ -165,7 +165,7 @@
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="createId != null">
-        create_id = #{createId,jdbcType=INTEGER},
+        create_id = #{createId,jdbcType=VARCHAR},
       </if>
       <if test="updateDate != null">
         update_date = #{updateDate,jdbcType=TIMESTAMP},
@@ -189,7 +189,7 @@
         email = #{email,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.cbkj_core.beans.AdminInfo">
     update admin_info
@@ -198,7 +198,7 @@
       sex = #{sex,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=TIMESTAMP},
-      create_id = #{createId,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=VARCHAR},
       update_date = #{updateDate,jdbcType=TIMESTAMP},
       last_ip = #{lastIp,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
@@ -206,7 +206,7 @@
       name_zh = #{nameZh,jdbcType=VARCHAR},
       user_heand = #{userHeand,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
 
 
@@ -229,4 +229,14 @@
      GROUP BY a.id
 
   </select>
+
+  <select id="getRoles" resultType="Map">
+     SELECT rid,rname_zh rnameZh from admin_rule
+
+  </select>
+  
+  <insert id="insertAdminRule" parameterType="AdmininfoRule">
+
+    insert into admin_info_rule (ir_id,rid,admin_id) VALUES (#{irID},#{rid},#{adminID})
+  </insert>
 </mapper>

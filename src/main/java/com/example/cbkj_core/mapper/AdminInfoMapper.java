@@ -1,6 +1,7 @@
 package com.example.cbkj_core.mapper;
 
 import com.example.cbkj_core.beans.AdminInfo;
+import com.example.cbkj_core.beans.AdminInfoRule;
 
 import java.util.List;
 import java.util.Map;
@@ -21,4 +22,8 @@ public interface AdminInfoMapper {
     AdminInfo loadUserByUsername(String username);
 
     List<Map<String,Object>> getPageDatas(AdminInfo admin);
+
+    List<Map<String,Object>> getRoles();
+
+    int insertAdminRule(AdminInfoRule adminInfoRule);
 }

@@ -6,7 +6,7 @@ import java.util.Date;
  * 角色
  */
 public class AdminRule {
-    private Integer rid;
+    private String rid;
 
     private String rname;
 
@@ -18,11 +18,11 @@ public class AdminRule {
 
     private String rnameZh;
 
-    public Integer getRid() {
+    public String getRid() {
         return rid;
     }
 
-    public void setRid(Integer rid) {
+    public void setRid(String rid) {
         this.rid = rid;
     }
 

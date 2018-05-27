@@ -2,7 +2,7 @@ package com.example.cbkj_core.beans;
 
 public class ResEntity {
 
-    private String status;
+    private boolean status = true;
     private String message;
     private Object Data;
 
@@ -10,22 +10,22 @@ public class ResEntity {
 
     }
 
-    public ResEntity(String status,Object data){
+    public ResEntity(boolean status,Object data){
           this.status = status;
           this.Data = data;
     }
 
-    public ResEntity(String status,String message,Object data){
+    public ResEntity(boolean status,String message,Object data){
         this.status = status;
         this.message = message;
         this.Data = data;
     }
 
-    public String getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 

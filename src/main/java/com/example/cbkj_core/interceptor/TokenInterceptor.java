@@ -1,7 +1,7 @@
 package com.example.cbkj_core.interceptor;
 
 import com.example.cbkj_core.common.IDUtil;
-import com.example.cbkj_core.zAnnotaionUtil.TokenAnnotaion;
+import com.example.cbkj_core.annotaionUtil.TokenAnnotaion;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -44,8 +44,6 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                         out.close();
                         return false;
                     }
-
-//                    request.getSession(true).removeAttribute("token");
                 }
             }
             return true;

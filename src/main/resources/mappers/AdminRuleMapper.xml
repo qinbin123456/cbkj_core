@@ -2,23 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.cbkj_core.mapper.AdminRuleMapper">
   <resultMap id="BaseResultMap" type="com.example.cbkj_core.beans.AdminRule">
-    <id column="rid" jdbcType="INTEGER" property="rid" />
+    <id column="rid" jdbcType="VARCHAR" property="rid" />
     <result column="rname" jdbcType="VARCHAR" property="rname" />
     <result column="rdescr" jdbcType="VARCHAR" property="rdescr" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="admin_id" jdbcType="VARCHAR" property="adminId" />
     <result column="rname_zh" jdbcType="VARCHAR" property="rnameZh" />
   </resultMap>
   <sql id="Base_Column_List">
     rid, rname, rdescr, create_date, admin_id, rname_zh
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from admin_rule
-    where rid = #{rid,jdbcType=INTEGER}
+    where rid = #{rid,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from admin_rule
     where rid = #{rid,jdbcType=INTEGER}
   </delete>
@@ -26,8 +26,8 @@
     insert into admin_rule (rid, rname, rdescr, 
       create_date, admin_id, rname_zh
       )
-    values (#{rid,jdbcType=INTEGER}, #{rname,jdbcType=VARCHAR}, #{rdescr,jdbcType=VARCHAR}, 
-      #{createDate,jdbcType=TIMESTAMP}, #{adminId,jdbcType=INTEGER}, #{rnameZh,jdbcType=VARCHAR}
+    values (#{rid,jdbcType=VARCHAR}, #{rname,jdbcType=VARCHAR}, #{rdescr,jdbcType=VARCHAR},
+      #{createDate,jdbcType=TIMESTAMP}, #{adminId,jdbcType=VARCHAR}, #{rnameZh,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.cbkj_core.beans.AdminRule">
@@ -54,7 +54,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="rid != null">
-        #{rid,jdbcType=INTEGER},
+        #{rid,jdbcType=VARCHAR},
       </if>
       <if test="rname != null">
         #{rname,jdbcType=VARCHAR},
@@ -66,7 +66,7 @@
         #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="adminId != null">
-        #{adminId,jdbcType=INTEGER},
+        #{adminId,jdbcType=VARCHAR},
       </if>
       <if test="rnameZh != null">
         #{rnameZh,jdbcType=VARCHAR},
@@ -86,21 +86,21 @@
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="adminId != null">
-        admin_id = #{adminId,jdbcType=INTEGER},
+        admin_id = #{adminId,jdbcType=VARCHAR},
       </if>
       <if test="rnameZh != null">
         rname_zh = #{rnameZh,jdbcType=VARCHAR},
       </if>
     </set>
-    where rid = #{rid,jdbcType=INTEGER}
+    where rid = #{rid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.cbkj_core.beans.AdminRule">
     update admin_rule
     set rname = #{rname,jdbcType=VARCHAR},
       rdescr = #{rdescr,jdbcType=VARCHAR},
       create_date = #{createDate,jdbcType=TIMESTAMP},
-      admin_id = #{adminId,jdbcType=INTEGER},
+      admin_id = #{adminId,jdbcType=VARCHAR},
       rname_zh = #{rnameZh,jdbcType=VARCHAR}
-    where rid = #{rid,jdbcType=INTEGER}
+    where rid = #{rid,jdbcType=VARCHAR}
   </update>
 </mapper>

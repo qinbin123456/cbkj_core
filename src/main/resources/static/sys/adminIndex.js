@@ -123,7 +123,7 @@ function updateRow(ids,title,type){
         type: 2,
         content:['admin/edit/toPage?ID='+ids, 'no'],
         title:title,
-        area:["550px","540px"],
+        area:["480px","450px"],
         id:"QB_UPDATE",
         shade:0.7,
         scrollbar: false,
@@ -146,13 +146,30 @@ function updateRow(ids,title,type){
             params.token = $(formBody).find("input[name='token']").val();
             params.name = $(formBody).find("input[name='name']").val();
             params.phone = $(formBody).find("input[name='phone']").val();
+            params.rid =  $(formBody).f
+            ind("select[name='roleID']").val();
+            params.sex = $(formBody).find("input[name='sex']:checked").val();
+            params.address = $(formBody).find("input[name='address']").val();
+            params.email = $(formBody).find("input[name='email']").val();
+            params.id = $(formBody).find("input[name='id']").val();
+
+            if(null == params.name || params.name.trim() == ""){
+
+                parent.layer.msg("管理员必填哦");
+                return ;
+            }
+            if(null == params.phone || params.phone.trim() == ""){
+
+                parent.layer.msg("手机号码必填哦");
+                return ;
+            }
             var url = type === "new"?"../../admin/edit/insert":"../../admin/edit/update";
 
             $.post(url,params,function(result){
-                if(result.success){
+                if(result.status){
                     parent.layer.close(qb_upaddIndex);
                 }else{
-                    parent.layer.msg(result.errorMsg);
+                    parent.layer.msg(result.message);
                 }
             },"json");
 

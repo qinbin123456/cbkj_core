@@ -14,7 +14,8 @@ import java.util.List;
  * 管理员
  */
 public class AdminInfo implements UserDetails {
-    private Integer id;
+
+    private String id;
 
     private String name;
 
@@ -26,7 +27,7 @@ public class AdminInfo implements UserDetails {
 
     private Date createDate;
 
-    private Integer createId;
+    private String createId;
 
     private Date updateDate;
 
@@ -43,6 +44,9 @@ public class AdminInfo implements UserDetails {
     private String email;
 
     private List<AdminRule> roles;
+
+    private String rid;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -147,10 +151,19 @@ public class AdminInfo implements UserDetails {
         this.email = email;
     }
 
+    public String getRid() {
+        return rid;
+    }
+
+    public void setRid(String rid) {
+        this.rid = rid;
+    }
+
     /****************************************/
 
 
-    public Integer getId() {
+
+    public String getId() {
         return id;
     }
 
@@ -161,7 +174,7 @@ public class AdminInfo implements UserDetails {
     public void setRoles(List<AdminRule> roles) {
         this.roles = roles;
     }
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -206,11 +219,11 @@ public class AdminInfo implements UserDetails {
         this.createDate = createDate;
     }
 
-    public Integer getCreateId() {
+    public String getCreateId() {
         return createId;
     }
 
-    public void setCreateId(Integer createId) {
+    public void setCreateId(String createId) {
         this.createId = createId;
     }
 
