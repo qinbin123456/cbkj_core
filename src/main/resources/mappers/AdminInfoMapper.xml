@@ -193,21 +193,16 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.cbkj_core.beans.AdminInfo">
-    update admin_info
-    set name = #{name,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      status = #{status,jdbcType=INTEGER},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      create_id = #{createId,jdbcType=VARCHAR},
-      update_date = #{updateDate,jdbcType=TIMESTAMP},
-      last_ip = #{lastIp,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR},
-      name_zh = #{nameZh,jdbcType=VARCHAR},
-      user_heand = #{userHeand,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-    where id = #{id,jdbcType=VARCHAR}
+    update admin_info a,(select count(1) cun from admin_info c where c.name = #{name} and c.id != #{id}) b
+    set a.name = #{name,jdbcType=VARCHAR},
+      a.sex = #{sex,jdbcType=VARCHAR},
+      a.update_date = now(),
+      a.phone = #{phone,jdbcType=VARCHAR},
+      a.address = #{address,jdbcType=VARCHAR},
+      a.name_zh = #{nameZh,jdbcType=VARCHAR},
+      a.user_heand = #{userHeand,jdbcType=VARCHAR},
+      a.email = #{email,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=VARCHAR} and b.cun = 0
   </update>
 
 

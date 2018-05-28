@@ -64,10 +64,19 @@ public class AdminService implements UserDetailsService {
             adminInfoMapper.insertAdminRule(adminInfoRule);
             return new ResEntity(true,"SUCCESS",null);
         }
-        return new ResEntity(false,"该用户已存在",null);
+        return new ResEntity(false,"用户名不能重复哦",null);
     }
 
     public Object getRoles() {
         return adminInfoMapper.getRoles();
+    }
+
+    public ResEntity update(AdminInfo adminInfo) {
+        long rows = adminInfoMapper.updateByPrimaryKey(adminInfo);
+        if(rows >0){
+
+            return new ResEntity(true,"SUCCESS",null);
+        }
+        return new ResEntity(false,"用户名不能重复哦",null);
     }
 }

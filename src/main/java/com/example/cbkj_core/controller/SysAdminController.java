@@ -55,6 +55,17 @@ public class SysAdminController {
         return result;
     }
 
-
-
+    @RequestMapping("admin/edit/update")
+    @LogAnnotaion(description = "修改管理员")
+    @TokenAnnotaion(submitP = true)
+    @ResponseBody
+    public Object update(AdminInfo adminInfo) {
+        ResEntity result = null;
+        try {
+            result = adminService.update(adminInfo);
+        } catch (Exception e) {
+            result = new ResEntity(false,"服务异常",null);
+        }
+        return result;
+    }
 }
