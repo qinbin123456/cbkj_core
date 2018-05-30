@@ -213,10 +213,21 @@ function authority(ids){
             var params = {};
             var formBody = $(body).find(".layui-form");
             if(formBody.length > 0) {
-                var iframeWin = window[layero.find('iframe')[0]['name']];
-                console.log(iframeWin);
-                console.log("------------");
-                console.log(iframeWin.xthree);
+
+               var ids="";
+               $(formBody).find("input[type='checkbox']:checked").each(function(){
+                    var val = $(this).val();
+                    if(null != val && val != undefined && val != "no"){
+                        ids += (val+",");
+                    }
+               })
+               if(ids != ""){
+                   ids = ids.substring(0,ids.length-1);
+               }
+               params.token = $(formBody).find("input[name='token']").val();
+               params.rid = $(formBody).find("input[name='rid']").val();
+               params.mids = ids;
+               console.log(params);
             }
 
         },btn2: function(index, layero){
