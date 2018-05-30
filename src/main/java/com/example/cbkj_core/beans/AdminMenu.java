@@ -23,7 +23,7 @@ public class AdminMenu {
 
     private Date createDate;
 
-    private Integer cteateId;
+    private String cteateId;
 
     private List<AdminRule> rules;
 
@@ -99,11 +99,11 @@ public class AdminMenu {
         this.createDate = createDate;
     }
 
-    public Integer getCteateId() {
+    public String getCteateId() {
         return cteateId;
     }
 
-    public void setCteateId(Integer cteateId) {
+    public void setCteateId(String cteateId) {
         this.cteateId = cteateId;
     }
 }

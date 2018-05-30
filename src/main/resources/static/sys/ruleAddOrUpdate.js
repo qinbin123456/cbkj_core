@@ -1,13 +1,10 @@
 layui.use(['form', 'layedit', 'laydate'], function() {
-    var form = layui.form
-        , layer = layui.layer
-        , layedit = layui.layedit
-        , laydate = layui.laydate;
 
+    var form = layui.form;
     var id = $("input[name='rid']").val();
 
     if(null != id && id.trim() != "" && id != undefined && id != "null"){
-        $.getJSON("../../rule/edit/findObj",{id:id},function(result){
+        $.getJSON(path_+"/rule/update/findObj",{id:id},function(result){
             var status = result.status;
             if(status){
                 var data = result.data;
@@ -22,7 +19,6 @@ layui.use(['form', 'layedit', 'laydate'], function() {
             }else {
                 parent.layer.msg(result.message);
             }
-
         });
     }
 })

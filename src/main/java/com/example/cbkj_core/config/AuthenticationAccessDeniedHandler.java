@@ -18,16 +18,17 @@ import java.io.PrintWriter;
 public class AuthenticationAccessDeniedHandler implements AccessDeniedHandler {
     @Override
     public void handle(HttpServletRequest req, HttpServletResponse res, AccessDeniedException e) {
+        String url =req.getContextPath()+"/403";
         try{
             if(!StringUtils.isEmpty(req.getHeader("x-requested-with")) && req.getHeader("x-requested-with").equals("XMLHttpRequest")){
                 res.setStatus(HttpServletResponse.SC_FORBIDDEN);
                 res.setContentType("application/json;charset=UTF-8");
                 PrintWriter out = res.getWriter();
-                out.write("{\"status\":\"error\",\"msg\":\"权限不足，请联系管理员!\"}");
+                out.write("{\"status\":\"error\",\"msg\":\"权限不足，请联系管理员!\",\"url\":"+url+"}");
                 out.flush();
                 out.close();
             }else{
-                res.sendRedirect(req.getContextPath()+"/403");
+                res.sendRedirect(url);
             }
         }catch(Exception exc){
             System.out.println(exc.getMessage());

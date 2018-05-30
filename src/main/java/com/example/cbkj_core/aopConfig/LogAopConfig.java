@@ -36,7 +36,7 @@ public class LogAopConfig {
             Object obj  = method.getAnnotation(TokenAnnotaion.class);
             Object logObj  = method.getAnnotation(LogAnnotaion.class);
             boolean showLog = false;
-            boolean status = true;
+            boolean status = false;
             if(null != logObj){
                 showLog = true;
                 descpt = ((LogAnnotaion) logObj).description();
@@ -53,7 +53,7 @@ public class LogAopConfig {
             if(null != reo){
                 if(reo instanceof  ResEntity){
                     ResEntity entity = (ResEntity) reo;
-                    status =entity.getStatus();
+                    status = entity.getStatus();
                 }
             }
             if(showLog){

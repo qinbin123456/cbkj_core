@@ -6,7 +6,7 @@ layui.use('table', function(){
     lodingIndex = layer.load(2, {time: 10*1000});
     tableIns = table.render({
         elem: '#qb'
-        ,url:'getPages'
+        ,url:'rule/getPages'
         ,page: { //
             layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
             ,curr: 1
@@ -83,7 +83,7 @@ layui.use('table', function(){
             var checkStatus = table.checkStatus('qbTable'),data=checkStatus.data;
             if(data.length <= 0){
                 layer.msg("请选择需要删除的角色");
-            }else{
+            }else if(data.length == 1){
                 var names = "";
                 var params = {};
                 var ids = "";
@@ -98,21 +98,22 @@ layui.use('table', function(){
                 }, function(){
 
                     params.ids = ids;
-                    console.log(params);
-                    // $.post("../../rule/edit/deleteLis",params,function(result){
-                    //     if(result.status){
-                    //
-                    //         $(".layui-laypage-btn").click();
-                    //         parent.layer.closeAll();
-                    //
-                    //     }else{
-                    //         parent.layer.msg(status.message);
-                    //     }
-                    // },"JSON");
+                    $.post("../rule/deleteLis",params,function(result){
+                        if(result.status){
+
+                            $(".layui-laypage-btn").click();
+                            parent.layer.closeAll();
+
+                        }else{
+                            parent.layer.msg(result.message);
+                        }
+                    },"JSON");
 
                 }, function(){
 
                 });
+            }else{
+                layer.msg("只能单个进行删除哦");
             }
         }
     };
@@ -131,9 +132,10 @@ layui.use('table', function(){
  */
 function updateRow(ids,title,type){
 
-    var qb_upaddIndex = parent.layer.open({
+    var url = type === "new"?"rule/insert/toPage":"rule/update/toPage?ID="+ids;
+    var qb_Index = parent.layer.open({
         type: 2,
-        content:['rule/edit/toPage?ID='+ids, 'no'],
+        content:[url, 'no'],
         title:title,
         area:["480px","400px"],
         id:"QB_UPDATE",
@@ -169,10 +171,11 @@ function updateRow(ids,title,type){
                 parent.layer.msg("英文角色名称必填哦");
                 return ;
             }
-            var url = type === "new"?"../../rule/edit/insert":"../../rule/edit/update";
+            var url = type === "new"?"../rule/insert":"../rule/update";
             $.post(url,params,function(result){
+
                 if(result.status){
-                    parent.layer.close(qb_upaddIndex);
+                    parent.layer.close(qb_Index);
                 }else{
                     parent.layer.msg(result.message);
                 }

@@ -6,6 +6,7 @@ import com.example.cbkj_core.beans.AdminRule;
 import com.example.cbkj_core.beans.ResEntity;
 import com.example.cbkj_core.common.Page;
 import com.example.cbkj_core.service.AdminRuleService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ public class SysAdminRuleController{
     @Autowired
     private AdminRuleService adminRuleService;
 
-    @RequestMapping("sys/rule/index")
+    @RequestMapping("sys/rule")
     public String toIndex(){
         return "rule/index";
     }
@@ -30,14 +31,36 @@ public class SysAdminRuleController{
         return obj;
     }
 
-    @RequestMapping("rule/edit/toPage")
+    @RequestMapping("rule/insert/toPage")
     @TokenAnnotaion(toP = true)
-    public String addOrUpdateP(Model model, String ID){
+    public String insertP(){
+
+        return "rule/addOrUpdateP";
+    }
+
+    @RequestMapping("rule/authority/toPage")
+    @TokenAnnotaion(toP = true)
+    public String authorityP(String ID,Model model){
+        model.addAttribute("ID",ID);
+        return "rule/authority";
+    }
+
+    @RequestMapping("rule/update/toPage")
+    @TokenAnnotaion(toP = true)
+    public String updateP(Model model, String ID){
+
         model.addAttribute("id",ID);
         return "rule/addOrUpdateP";
     }
 
-    @RequestMapping("rule/edit/insert")
+    @RequestMapping("rule/update/findObj")
+    @ResponseBody
+    public Object getObj(String id){
+        ResEntity result = adminRuleService.findObj(id);
+        return result;
+    }
+
+    @RequestMapping("rule/insert")
     @LogAnnotaion(description = "新增角色")
     @TokenAnnotaion(submitP = true)
     @ResponseBody
@@ -46,15 +69,9 @@ public class SysAdminRuleController{
         return result;
     }
 
-    @RequestMapping("rule/edit/findObj")
-    @ResponseBody
-    @LogAnnotaion(description = "获取修改角色的数据")
-    public Object getObj(String id){
-        ResEntity result = adminRuleService.findObj(id);
-        return result;
-    }
 
-    @RequestMapping("rule/edit/update")
+
+    @RequestMapping("rule/update")
     @LogAnnotaion(description = "修改角色")
     @TokenAnnotaion(submitP = true)
     @ResponseBody
@@ -63,7 +80,7 @@ public class SysAdminRuleController{
         return result;
     }
 
-    @RequestMapping(value="rule/edit/deleteLis")
+    @RequestMapping(value="rule/deleteLis")
     @LogAnnotaion(description = "删除角色")
     @ResponseBody
     public Object deleteLis(String ids){
@@ -71,7 +88,6 @@ public class SysAdminRuleController{
         try {
             result = adminRuleService.deleteLis(ids);
         } catch (Exception e) {
-            e.printStackTrace();
             result = new ResEntity(false,"服务异常",null);
         }
 

@@ -10,7 +10,7 @@
     <result column="enabled" jdbcType="INTEGER" property="enabled" />
     <result column="parent_mid" jdbcType="INTEGER" property="parentMid" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
-    <result column="cteate_id" jdbcType="INTEGER" property="cteateId" />
+    <result column="cteate_id" jdbcType="VARCHAR" property="cteateId" />
 
     <collection property="rules" ofType="com.example.cbkj_core.beans.AdminRule">
       <id column="rid" property="rid"/>
@@ -68,7 +68,7 @@
       )
     values (#{mid,jdbcType=INTEGER}, #{mname,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
       #{path,jdbcType=VARCHAR}, #{iconcls,jdbcType=VARCHAR}, #{enabled,jdbcType=INTEGER}, 
-      #{parentMid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{cteateId,jdbcType=INTEGER}
+      #{parentMid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, #{cteateId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.example.cbkj_core.beans.AdminMenu">
@@ -128,7 +128,7 @@
         #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="cteateId != null">
-        #{cteateId,jdbcType=INTEGER},
+        #{cteateId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -157,7 +157,7 @@
         create_date = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="cteateId != null">
-        cteate_id = #{cteateId,jdbcType=INTEGER},
+        cteate_id = #{cteateId,jdbcType=VARCHAR},
       </if>
     </set>
     where mid = #{mid,jdbcType=INTEGER}
@@ -171,7 +171,7 @@
       enabled = #{enabled,jdbcType=INTEGER},
       parent_mid = #{parentMid,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=TIMESTAMP},
-      cteate_id = #{cteateId,jdbcType=INTEGER}
+      cteate_id = #{cteateId,jdbcType=VARCHAR}
     where mid = #{mid,jdbcType=INTEGER}
   </update>
 </mapper>

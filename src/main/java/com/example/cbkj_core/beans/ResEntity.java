@@ -1,5 +1,8 @@
 package com.example.cbkj_core.beans;
 
+/**
+ * 响应实体
+ */
 public class ResEntity {
 
     private boolean status = true;

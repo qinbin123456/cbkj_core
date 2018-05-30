@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface AdminRuleMapper {
-    int deleteByPrimaryKey(Integer rid);
+    int deleteByPrimaryKey(String rid);
 
     int insert(AdminRule record);
 
@@ -19,4 +19,8 @@ public interface AdminRuleMapper {
     int updateByPrimaryKey(AdminRule record);
 
     List<Map<String,Object>> getPageDatas(AdminRule adminRule);
+
+    long getRuleRelesCount(String ids);
+
+    long deleteRuleMenuByRid(String ids);
 }

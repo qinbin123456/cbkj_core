@@ -21,7 +21,7 @@
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from admin_rule
-    where rid = #{rid,jdbcType=INTEGER}
+    where rid = #{ids}
   </delete>
   <insert id="insert" parameterType="com.example.cbkj_core.beans.AdminRule">
     insert into admin_rule (rid, rname, rdescr, 
@@ -116,4 +116,13 @@
        and r.rname_zh like CONCAT('%',trim(#{rname}),'%')
      </if>
   </select>
+
+  <select id="getRuleRelesCount" parameterType="String" resultType="Long">
+    select count(1) cun from admin_info_rule where rid = #{ids}
+  </select>
+
+  <delete id="deleteRuleMenuByRid" parameterType="java.lang.String">
+    delete from admin_info_rule
+    where rid = #{ids}
+  </delete>
 </mapper>

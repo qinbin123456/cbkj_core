@@ -6,7 +6,7 @@ layui.use('table', function(){
     lodingIndex = layer.load(2, {time: 10*1000});
     tableIns = table.render({
         elem: '#admin'
-        ,url:'getPages'
+        ,url:'admin/getPages'
         ,page: { //
             layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
             ,curr: 1
@@ -108,12 +108,12 @@ layui.use('table', function(){
                     params.ids = ids;
                     params.newPwd = pass;
 
-                    $.post("../../admin/edit/changePwd",params,function(result){
+                    $.post("../admin/changePwd",params,function(result){
                         if(result.status){
                             $(".layui-laypage-btn").click();
                             parent.layer.close(index);
                         }else{
-                            parent.layer.msg(status.message);
+                            parent.layer.msg(result.message);
                         }
                     },"JSON");
 
@@ -141,12 +141,12 @@ layui.use('table', function(){
                     btn: ['确定','取消'] //按钮
                 }, function(){
 
-                    $.post("../../admin/edit/changeStatus",params,function(result){
+                    $.post("../admin/changeStatus",params,function(result){
                         if(result.status){
                             $(".layui-laypage-btn").click();
                             parent.layer.closeAll();
                         }else{
-                            parent.layer.msg(status.message);
+                            parent.layer.msg(result.message);
                         }
                     },"JSON");
 
@@ -178,14 +178,14 @@ layui.use('table', function(){
                 }, function(){
 
                     params.ids = ids;
-                    $.post("../../admin/edit/deleteLis",params,function(result){
+                    $.post("../admin/deleteLis",params,function(result){
                         if(result.status){
 
                             $(".layui-laypage-btn").click();
                             parent.layer.closeAll();
 
                         }else{
-                            parent.layer.msg(status.message);
+                            parent.layer.msg(result.message);
                         }
                     },"JSON");
 
@@ -210,9 +210,11 @@ layui.use('table', function(){
  */
 function updateRow(ids,title,type){
 
-    var qb_upaddIndex = parent.layer.open({
+    var url = type === "new"?"admin/insert/toPage":"admin/update/toPage?ID="+ids;
+
+    var qb_Index = parent.layer.open({
         type: 2,
-        content:['admin/edit/toPage?ID='+ids, 'no'],
+        content:[url, 'no'],
         title:title,
         area:["480px","450px"],
         id:"QB_UPDATE",
@@ -233,36 +235,35 @@ function updateRow(ids,title,type){
             var body = parent.layer.getChildFrame('body', index);
             var params = {};
             var formBody = $(body).find(".layui-form");
+            if(formBody.length > 0){
+                params.token = $(formBody).find("input[name='token']").val();
+                params.name = $(formBody).find("input[name='name']").val();
+                params.phone = $(formBody).find("input[name='phone']").val();
+                params.rid =  $(formBody).find("select[name='roleID']").val();
+                params.sex = $(formBody).find("input[name='sex']:checked").val();
+                params.address = $(formBody).find("input[name='address']").val();
+                params.email = $(formBody).find("input[name='email']").val();
+                params.id = $(formBody).find("input[name='id']").val();
 
-            params.token = $(formBody).find("input[name='token']").val();
-            params.name = $(formBody).find("input[name='name']").val();
-            params.phone = $(formBody).find("input[name='phone']").val();
-            params.rid =  $(formBody).find("select[name='roleID']").val();
-            params.sex = $(formBody).find("input[name='sex']:checked").val();
-            params.address = $(formBody).find("input[name='address']").val();
-            params.email = $(formBody).find("input[name='email']").val();
-            params.id = $(formBody).find("input[name='id']").val();
-
-            if(null == params.name || params.name.trim() == ""){
-
-                parent.layer.msg("管理员必填哦");
-                return ;
-            }
-            if(null == params.phone || params.phone.trim() == ""){
-
-                parent.layer.msg("手机号码必填哦");
-                return ;
-            }
-            var url = type === "new"?"../../admin/edit/insert":"../../admin/edit/update";
-
-            $.post(url,params,function(result){
-                if(result.status){
-                    parent.layer.close(qb_upaddIndex);
-                }else{
-                    parent.layer.msg(result.message);
+                if(null == params.name || params.name.trim() == ""){
+                    parent.layer.msg("管理员必填哦");
+                    return ;
                 }
-            },"json");
-
+                if(null == params.phone || params.phone.trim() == ""){
+                    parent.layer.msg("手机号码必填哦");
+                    return ;
+                }
+                var url = type === "new"?"../admin/insert":"../admin/update";
+                $.post(url,params,function(result){
+                    if(result.status){
+                        parent.layer.close(qb_Index);
+                    }else{
+                        parent.layer.msg(result.message);
+                    }
+                },"json");
+            }else{
+                parent.layer.close(qb_Index);
+            }
         },btn2: function(index, layero){
             //按钮【按钮二】的回调
         }

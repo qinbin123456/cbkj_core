@@ -6,8 +6,8 @@ import com.example.cbkj_core.common.Page;
 import com.example.cbkj_core.service.AdminService;
 import com.example.cbkj_core.annotaionUtil.LogAnnotaion;
 import com.example.cbkj_core.annotaionUtil.TokenAnnotaion;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,7 @@ public class SysAdminController {
     private AdminService adminService;
 
 
-    @RequestMapping("sys/admin/index")
+    @RequestMapping("sys/admin")
     public String toIndex(){
         return "admin/index";
     }
@@ -35,15 +35,29 @@ public class SysAdminController {
         return obj;
     }
 
-    @RequestMapping("admin/edit/toPage")
+    @RequestMapping("admin/insert/toPage")
     @TokenAnnotaion(toP = true)
-    public String addOrUpdateP(Model model, String ID){
+    public String insertP(Model model){
+        model.addAttribute("roles",adminService.getRoles());
+        return "admin/addOrUpdateP";
+    }
+
+    @RequestMapping("admin/update/toPage")
+    @TokenAnnotaion(toP = true)
+    public String updateP(Model model, String ID){
         model.addAttribute("roles",adminService.getRoles());
         model.addAttribute("id",ID);
         return "admin/addOrUpdateP";
     }
 
-    @RequestMapping("admin/edit/insert")
+    @RequestMapping("admin/update/findObj")
+    @ResponseBody
+    public Object getAdminInfo(String id){
+        ResEntity result = adminService.findObj(id);
+        return result;
+    }
+
+    @RequestMapping("admin/insert")
     @LogAnnotaion(description = "新增管理员")
     @TokenAnnotaion(submitP = true)
     @ResponseBody
@@ -57,15 +71,9 @@ public class SysAdminController {
         return result;
     }
 
-    @RequestMapping("admin/edit/findObj")
-    @ResponseBody
-    @LogAnnotaion(description = "获取修改管理员的数据")
-    public Object getAdminInfo(String id){
-        ResEntity result = adminService.findObj(id);
-        return result;
-    }
 
-    @RequestMapping("admin/edit/update")
+
+    @RequestMapping("admin/update")
     @LogAnnotaion(description = "修改管理员")
     @TokenAnnotaion(submitP = true)
     @ResponseBody
@@ -74,7 +82,7 @@ public class SysAdminController {
         return result;
     }
 
-    @RequestMapping(value="admin/edit/changePwd")
+    @RequestMapping(value="admin/changePwd")
     @LogAnnotaion(description = "重置密码")
     @ResponseBody
     public Object changePwd(String ids,String newPwd){
@@ -82,7 +90,7 @@ public class SysAdminController {
         return result;
     }
 
-    @RequestMapping(value="admin/edit/changeStatus")
+    @RequestMapping(value="admin/changeStatus")
     @LogAnnotaion(description = "禁用启用管理员")
     @ResponseBody
     public Object changeStatus(String id,String status){
@@ -90,7 +98,7 @@ public class SysAdminController {
         return result;
     }
 
-    @RequestMapping(value="admin/edit/deleteLis")
+    @RequestMapping(value="admin/deleteLis")
     @LogAnnotaion(description = "删除管理员")
     @ResponseBody
     public Object deleteLis(String ids){

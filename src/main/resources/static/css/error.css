@@ -1,3 +1,16 @@
-body{margin:0px;padding:0px;text-align:center;color:red;background-color:#ffffff;}
+body{margin:0px;padding:0px;text-align:center;background-color:#ffffff;}
 .err_div{width:470px;height:300px;position: absolute;left:50%;top:50%;margin-left:-235px;
-    margin-top: -150px;}
+    margin-top: -150px;text-align: center;}
+.img{background-image: url(../images/403.png);
+    width: 50px;
+    height: 50px;
+    margin-top: 100px;
+    margin-left: 213px;
+    margin-bottom: 10px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.img400{
+    background-image: url(../images/400.png);
+}

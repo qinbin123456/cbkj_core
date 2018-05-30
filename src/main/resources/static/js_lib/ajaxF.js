@@ -1,12 +1,13 @@
+var pathName_L = document.location.pathname;
+var index_L = pathName_L.substr(1).indexOf("/");
+var path_ = pathName_L.substr(0,index_L+1);
+
 $.ajaxSetup({
     complete:function(XMLHttpRequest,status){
         if(XMLHttpRequest.status == 403){
-            window.location.href='403'
+            window.location.href = path_+"/403";
+        }else if(XMLHttpRequest.status != 200){
+            window.location.href = path_+"/400";
         }
-        // var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus");
-        // if(sessionstatus=="timeout"){
-        //     //如果超时就处理 ，指定要跳转的页面(比如登陆页)
-        //     window.location.replace("/login/index.php");
-        // }
     }
 });

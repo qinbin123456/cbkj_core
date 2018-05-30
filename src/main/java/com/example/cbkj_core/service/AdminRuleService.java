@@ -87,7 +87,13 @@ public class AdminRuleService {
         if(StringUtils.isBlank(ids)){
             return new ResEntity(false,"缺少参数！",null);
         }
-
-        return null;
+        long rows = adminRuleMapper.getRuleRelesCount(ids);
+        if(rows > 0){
+            return new ResEntity(false,"当前角色正在被使用，不能删除",null);
+        }else{
+            long rowA = adminRuleMapper.deleteByPrimaryKey(ids);
+            long rowB = adminRuleMapper.deleteRuleMenuByRid(ids);
+            return new ResEntity(true,"SUCCESS",rowA);
+        }
     }
 }
