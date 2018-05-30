@@ -15,7 +15,7 @@ layui.use('table', function(){
             ,last: false //不显示尾页
         }
         ,cols: [[//破除
-             {checkbox: true}
+            {checkbox: true}
             ,{field:'rname_zh',width:180, title: '中文名'}
             ,{field:'rname',width:180, title: '英文名'}
             ,{field:'index_url',width:200,title: '首页地址'}
@@ -75,8 +75,10 @@ layui.use('table', function(){
             var checkStatus = table.checkStatus('qbTable'),data=checkStatus.data;
             if(data.length<=0){
                 layer.msg("请选择需要设置权限的角色");
+            }else if(data.length == 1){
+                authority(data[0].rid);
             }else{
-                console.log("角色主键："+data[0].rid);
+                layer.msg("只能单个进行操作哦");
             }
         },
         delete_:function(){
@@ -88,8 +90,8 @@ layui.use('table', function(){
                 var params = {};
                 var ids = "";
                 data.forEach(function(obj,index){
-                   names += obj.rname_zh+"、";
-                   ids += obj.rid+",";
+                    names += obj.rname_zh+"、";
+                    ids += obj.rid+",";
                 });
                 names = names.substring(0,names.length-1);
                 ids = ids.substring(0,ids.length-1);
@@ -143,46 +145,83 @@ function updateRow(ids,title,type){
         scrollbar: false,
         maxmin: false,
         fix: false,
-        end:function(){//窗口关闭执行回调
-            if(type === "new"){
-                lodingIndex = layer.load(2, {time: 10*1000});
-                tableIns.reload({page: {curr: 1 }});
-            }else{
-                $(".layui-laypage-btn").click();
-            }
+        end:function(){
+
         },
         btn: ['确定', '取消']
         ,yes: function(index, layero){
             var body = parent.layer.getChildFrame('body', index);
             var params = {};
             var formBody = $(body).find(".layui-form");
-
-            params.token = $(formBody).find("input[name='token']").val();
-            params.rid =  $(formBody).find("input[name='rid']").val();
-            params.rname = $(formBody).find("input[name='rname']").val();
-            params.rnameZh = $(formBody).find("input[name='rname_zh']").val();
-            params.indexUrl = $(formBody).find("input[name='index_url']").val();
-            params.rdescr = $(formBody).find("textarea[name='rdescr']").val();
-            if(null == params.rnameZh || params.rnameZh.trim() == ""){
-                parent.layer.msg("角色名称必填哦");
-                return ;
-            }
-            if(null == params.rname || params.rname.trim() == ""){
-                parent.layer.msg("英文角色名称必填哦");
-                return ;
-            }
-            var url = type === "new"?"../rule/insert":"../rule/update";
-            $.post(url,params,function(result){
-
-                if(result.status){
-                    parent.layer.close(qb_Index);
-                }else{
-                    parent.layer.msg(result.message);
+            if(formBody.length > 0) {
+                params.token = $(formBody).find("input[name='token']").val();
+                params.rid = $(formBody).find("input[name='rid']").val();
+                params.rname = $(formBody).find("input[name='rname']").val();
+                params.rnameZh = $(formBody).find("input[name='rname_zh']").val();
+                params.indexUrl = $(formBody).find("input[name='index_url']").val();
+                params.rdescr = $(formBody).find("textarea[name='rdescr']").val();
+                if (null == params.rnameZh || params.rnameZh.trim() == "") {
+                    parent.layer.msg("角色名称必填哦");
+                    return;
                 }
-            },"json");
+                if (null == params.rname || params.rname.trim() == "") {
+                    parent.layer.msg("英文角色名称必填哦");
+                    return;
+                }
+                var url = type === "new" ? "../rule/insert" : "../rule/update";
+                $.post(url, params, function (result) {
+                    if (result.status) {
+                        if (type === "new") {
+                            lodingIndex = layer.load(2, {time: 10 * 1000});
+                            tableIns.reload({page: {curr: 1}});
+                        } else {
+                            $(".layui-laypage-btn").click();
+                        }
+                        parent.layer.close(qb_Index);
+                    } else {
+                        parent.layer.msg(result.message);
+                    }
+                }, "json");
+            }
 
         },btn2: function(index, layero){
             //按钮【按钮二】的回调
         }
+
+    });
+}
+
+function authority(ids){
+
+    var url = "rule/authority/toPage?ID="+ids;
+    var qb_Index = parent.layer.open({
+        type: 2,
+        content:[url, 'no'],
+        title:"权限设置",
+        area:["400px","480px"],
+        id:"QB_UPDATE",
+        shade:0.7,
+        scrollbar: false,
+        maxmin: false,
+        fix: false,
+        end:function(){
+
+        },
+        btn: ['确定', '取消']
+        ,yes: function(index, layero){
+            var body = parent.layer.getChildFrame('body', index);
+            var params = {};
+            var formBody = $(body).find(".layui-form");
+            if(formBody.length > 0) {
+                var iframeWin = window[layero.find('iframe')[0]['name']];
+                console.log(iframeWin);
+                console.log("------------");
+                console.log(iframeWin.xthree);
+            }
+
+        },btn2: function(index, layero){
+            //取消需要做些什么呢
+        }
+
     });
 }

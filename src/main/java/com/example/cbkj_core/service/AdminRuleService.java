@@ -5,6 +5,7 @@ import com.example.cbkj_core.beans.ResEntity;
 import com.example.cbkj_core.common.AdminUtils;
 import com.example.cbkj_core.common.IDUtil;
 import com.example.cbkj_core.common.Page;
+import com.example.cbkj_core.mapper.AdminMenuMapper;
 import com.example.cbkj_core.mapper.AdminRuleMapper;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
@@ -12,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +24,9 @@ public class AdminRuleService {
 
     @Autowired
     private AdminRuleMapper adminRuleMapper;
+
+    @Autowired
+    private AdminMenuMapper adminMenuMapper;
 
     /**
      * 加载分页数据
@@ -95,5 +101,63 @@ public class AdminRuleService {
             long rowB = adminRuleMapper.deleteRuleMenuByRid(ids);
             return new ResEntity(true,"SUCCESS",rowA);
         }
+    }
+
+    /**
+     * 加载权限菜单
+     * @param id
+     * @return
+     */
+    public ResEntity findMenu(String id) throws Exception{
+        List<Map<String,Object>> menuAll = adminMenuMapper.selectAllMenu();
+        List<Map<String,Object>> ruleAllMenu = adminMenuMapper.getMenuByRid(id);
+        List<Map<String,Object>> resultList = new ArrayList<>();
+        Map<String,Object> ruleM = new HashMap<>();
+        Map<String,String> parentList = new HashMap<>();
+        for(Map<String,Object> menu:ruleAllMenu){
+            ruleM.put(menu.get("mid").toString(),menu.get("rmid"));
+        }
+        for(Map<String,Object> menu:menuAll){
+            String parent = menu.get("parent_mid").toString();
+            String value = menu.get("mid").toString();
+            parentList.put(parent,value);
+        }
+        resultList = getChildrenMenu(menuAll,"0",ruleM,parentList);
+
+        return new ResEntity(true,"SUCCESS",resultList);
+    }
+
+    public List<Map<String,Object>> getChildrenMenu(List<Map<String,Object>> lis,String parentID,Map<String,Object> ruleM,Map<String,String> parentList){
+        List<Map<String,Object>> resultList = new ArrayList<>();
+        for(Map<String,Object> menu:lis){
+            if(null != menu){
+
+                String pid = menu.get("parent_mid").toString();
+                if(pid.equals(parentID)){
+                    String title = menu.get("mname").toString();
+                    String value = menu.get("mid").toString();
+                    Map<String,Object> m = new HashMap<>();
+                    m.put("title",title);
+                    m.put("value",value);
+                    if(ruleM.containsKey(value)){
+                        m.put("checked",true);
+                    }
+                    List<Map<String,Object>> dataLis = new ArrayList<>();
+
+                    if(parentList.containsKey(value)){
+                        dataLis  = getChildrenMenu(lis,value,ruleM,parentList);
+                    }
+                    if(null != dataLis && dataLis.size()>0){
+                        m.put("data",dataLis);
+                    }
+                    else{
+                        m.put("data",dataLis);
+                    }
+                    resultList.add(m);
+                }
+            }
+
+        }
+        return resultList;
     }
 }

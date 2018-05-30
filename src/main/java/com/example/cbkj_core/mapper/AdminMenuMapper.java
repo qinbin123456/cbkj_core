@@ -22,4 +22,8 @@ public interface AdminMenuMapper {
     List<AdminMenu> getAllMenu();
 
     List<Menu> getMenuByPID(Map<String,Object> params);
+
+    List<Map<String,Object>> selectAllMenu();
+
+    List<Map<String,Object>> getMenuByRid(String id);
 }

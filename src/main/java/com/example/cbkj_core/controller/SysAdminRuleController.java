@@ -41,7 +41,7 @@ public class SysAdminRuleController{
     @RequestMapping("rule/authority/toPage")
     @TokenAnnotaion(toP = true)
     public String authorityP(String ID,Model model){
-        model.addAttribute("ID",ID);
+        model.addAttribute("id",ID);
         return "rule/authority";
     }
 
@@ -90,7 +90,20 @@ public class SysAdminRuleController{
         } catch (Exception e) {
             result = new ResEntity(false,"服务异常",null);
         }
+        return result;
+    }
 
+    @RequestMapping("rule/authority/findMenu")
+    @ResponseBody
+    public Object findMenu(String id){
+        ResEntity result = null;
+        try {
+            result = adminRuleService.findMenu(id);
+            Object obj = result.getData();
+            return obj;
+        } catch (Exception e) {
+            result = new ResEntity(false,"加载角色菜单异常",null);
+        }
         return result;
     }
 

@@ -168,8 +168,8 @@ layui.use('table', function(){
                 var params = {};
                 var ids = "";
                 data.forEach(function(obj,index){
-                   names += obj.name+"、";
-                   ids += obj.id+",";
+                    names += obj.name+"、";
+                    ids += obj.id+",";
                 });
                 names = names.substring(0,names.length-1);
                 ids = ids.substring(0,ids.length-1);
@@ -222,13 +222,8 @@ function updateRow(ids,title,type){
         scrollbar: false,
         maxmin: false,
         fix: false,
-        end:function(){//窗口关闭执行回调
-            if(type === "new"){
-                lodingIndex = layer.load(2, {time: 10*1000});
-                tableIns.reload({page: {curr: 1 }});
-            }else{
-                $(".layui-laypage-btn").click();
-            }
+        end:function(){
+
         },
         btn: ['确定', '取消']
         ,yes: function(index, layero){
@@ -256,6 +251,12 @@ function updateRow(ids,title,type){
                 var url = type === "new"?"../admin/insert":"../admin/update";
                 $.post(url,params,function(result){
                     if(result.status){
+                        if(type === "new"){
+                            lodingIndex = layer.load(2, {time: 10*1000});
+                            tableIns.reload({page: {curr: 1 }});
+                        }else{
+                            $(".layui-laypage-btn").click();
+                        }
                         parent.layer.close(qb_Index);
                     }else{
                         parent.layer.msg(result.message);

@@ -174,4 +174,14 @@
       cteate_id = #{cteateId,jdbcType=VARCHAR}
     where mid = #{mid,jdbcType=INTEGER}
   </update>
+
+  <select id="selectAllMenu" resultType="Map">
+      select mid,mname,iconCls,parent_mid from admin_menu where enabled = 2
+
+  </select>
+
+  <select id="getMenuByRid" resultType="Map" parameterType="String">
+      select rmid,mid,rid from admin_rule_menu where rid =#{rid}
+
+  </select>
 </mapper>
