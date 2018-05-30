@@ -1,23 +1,27 @@
 package com.example.cbkj_core.common;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Page implements Serializable{
 
 	private static final long serialVersionUID = 2843053623355369576L;
-	
+
 	private Integer limit=10;
 	private Integer page=1;
-	
+
 	public Page() {};
 
 	public Page(int rows, int page) {
 		this.page = page;
 		this.limit = rows;
 	}
-	
+
 	public int getCurrentRow() {
 		if (this.page <= 0) return 0;
 		return this.limit * (this.page - 1);
@@ -55,6 +59,17 @@ public class Page implements Serializable{
 		result.put("data",data);
 		return result;
 	}
-	
+
+	public static Object getLayUiTablePageData(List<Map<String,Object>> lis){
+		Object result = null;
+		try{
+			PageInfo<Map<String,Object>> pageInfo = new PageInfo<>(lis);
+			result = getLayuiData(0,"success",pageInfo.getTotal(),lis);
+		}catch (Exception e){
+			result = getLayuiData(1,"数据服务异常",0,null);
+		}
+		return result;
+	}
+
 
 }

@@ -14,7 +14,7 @@ public class AdminRule {
 
     private Date createDate;
 
-    private Integer adminId;
+    private String adminId;
 
     private String rnameZh;
 
@@ -60,11 +60,11 @@ public class AdminRule {
         this.createDate = createDate;
     }
 
-    public Integer getAdminId() {
+    public String getAdminId() {
         return adminId;
     }
 
-    public void setAdminId(Integer adminId) {
+    public void setAdminId(String adminId) {
         this.adminId = adminId;
     }
 

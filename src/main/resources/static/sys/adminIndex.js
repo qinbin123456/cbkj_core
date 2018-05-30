@@ -1,4 +1,5 @@
 var table,lodingIndex,tableIns;
+
 layui.use('table', function(){
     table = layui.table;
     //加载图标
@@ -12,7 +13,6 @@ layui.use('table', function(){
             ,groups: 1 //只显示 1 个连续页码
             ,first: false //不显示首页
             ,last: false //不显示尾页
-
         }
         ,cols: [[//破除
             {checkbox: true}
@@ -84,25 +84,116 @@ layui.use('table', function(){
 
             var checkStatus = table.checkStatus('adminTable'),data=checkStatus.data;
             if(data.length <= 0){
-                layer.msg("请选择需要修改的数据");
+                layer.msg("请选择需要修改的管理员");
 
             }else if(data.length == 1){
-                layer.msg(JSON.stringify(checkStatus.data));
-                // updateRow(null,"修改管理员","update");
+                updateRow(data[0].id,"修改管理员","update");
             }else{
-                layer.msg("修改不支持多个哦！请选择一个进行修改");
+                layer.msg("只能单个进行修改哦");
             }
         },
         updatePwd_:function(){
-            console.log("重置密码操作");
+            var checkStatus = table.checkStatus('adminTable'),data=checkStatus.data;
+            if(data.length<=0){
+                layer.msg("请选择需要重置密码的用户");
+            }else{
+                var params = {};
+                var ids = "";
+                data.forEach(function(obj,index){
+                    ids += obj.id+",";
+                });
+                ids = ids.substring(0,ids.length-1);
+
+                parent.layer.prompt({title: '输入新的密码', formType: 1}, function(pass, index){
+                    params.ids = ids;
+                    params.newPwd = pass;
+
+                    $.post("../../admin/edit/changePwd",params,function(result){
+                        if(result.status){
+                            $(".layui-laypage-btn").click();
+                            parent.layer.close(index);
+                        }else{
+                            parent.layer.msg(status.message);
+                        }
+                    },"JSON");
+
+                });
+            }
         },
         updateStatus_:function(){
-            console.log("禁用启用操作");
+            var checkStatus = table.checkStatus('adminTable'),data=checkStatus.data;
+            if(data.length <= 0){
+                layer.msg("请选择需要操作的管理员");
+
+            }else if(data.length == 1){
+                var obj = data[0];
+                var params = {};
+                params.id = obj.id;
+                params.status = (obj.status==1?2:1);
+                var text = "";
+                if(obj.status == 1){
+                    text = "禁用";
+                }else{
+                    text = "启用";
+                }
+
+                parent.layer.confirm('确定需要 '+text+' 管理员[ <span style="color:red">'+obj.name+'</span> ]吗？', {
+                    btn: ['确定','取消'] //按钮
+                }, function(){
+
+                    $.post("../../admin/edit/changeStatus",params,function(result){
+                        if(result.status){
+                            $(".layui-laypage-btn").click();
+                            parent.layer.closeAll();
+                        }else{
+                            parent.layer.msg(status.message);
+                        }
+                    },"JSON");
+
+                }, function(){
+
+                });
+
+            }else{
+                layer.msg("目前只能单个操作哦");
+            }
+
         },
         delete_:function(){
-            console.log("删除操作");
-        }
+            var checkStatus = table.checkStatus('adminTable'),data=checkStatus.data;
+            if(data.length <= 0){
+                layer.msg("请选择需要删除的管理员");
+            }else{
+                var names = "";
+                var params = {};
+                var ids = "";
+                data.forEach(function(obj,index){
+                   names += obj.name+"、";
+                   ids += obj.id+",";
+                });
+                names = names.substring(0,names.length-1);
+                ids = ids.substring(0,ids.length-1);
+                parent.layer.confirm('确定需要删除管理员[ <span style="color:red">'+names+'</span> ]吗？', {
+                    btn: ['删除','取消'] //按钮
+                }, function(){
 
+                    params.ids = ids;
+                    $.post("../../admin/edit/deleteLis",params,function(result){
+                        if(result.status){
+
+                            $(".layui-laypage-btn").click();
+                            parent.layer.closeAll();
+
+                        }else{
+                            parent.layer.msg(status.message);
+                        }
+                    },"JSON");
+
+                }, function(){
+
+                });
+            }
+        }
     };
 
     $('.btns .layui-btn').on('click', function(){
@@ -146,8 +237,7 @@ function updateRow(ids,title,type){
             params.token = $(formBody).find("input[name='token']").val();
             params.name = $(formBody).find("input[name='name']").val();
             params.phone = $(formBody).find("input[name='phone']").val();
-            params.rid =  $(formBody).f
-            ind("select[name='roleID']").val();
+            params.rid =  $(formBody).find("select[name='roleID']").val();
             params.sex = $(formBody).find("input[name='sex']:checked").val();
             params.address = $(formBody).find("input[name='address']").val();
             params.email = $(formBody).find("input[name='email']").val();

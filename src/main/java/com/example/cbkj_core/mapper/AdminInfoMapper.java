@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 public interface AdminInfoMapper {
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(String id);
 
     int insert(AdminInfo record);
 
     int insertSelective(AdminInfo record);
 
-    AdminInfo selectByPrimaryKey(Integer id);
+    AdminInfo selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(AdminInfo record);
 
@@ -26,4 +26,12 @@ public interface AdminInfoMapper {
     List<Map<String,Object>> getRoles();
 
     int insertAdminRule(AdminInfoRule adminInfoRule);
+
+    long updatePwd(Map<String,Object> params);
+
+    long updateStatus(Map<String,Object> params);
+
+    long deleteAdminRole(String[] split);
+
+    long deleteBylis(String[] split);
 }

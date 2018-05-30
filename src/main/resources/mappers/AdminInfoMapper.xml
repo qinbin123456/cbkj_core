@@ -26,7 +26,7 @@
   </resultMap>
 
   <select id="getRolesByAdminId" resultType="AdminRule">
-     select r.rid, r.rname, r.rdescr, r.create_date, r.admin_id, r.rname_zh,r.index_url indexUrl from
+     select r.rid, r.rname, r.rdescr, r.create_date, r.admin_id adminId, r.rname_zh,r.index_url indexUrl from
      admin_info_rule ar,admin_rule r where ar.rid = r.rid AND ar.admin_id=#{id}
 
   </select>
@@ -34,12 +34,15 @@
   <sql id="Base_Column_List">
     id, name, password, sex, status, create_date, create_id, update_date, last_ip,phone,address,name_zh,user_heand,email
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="lazyLoadRoles">
     select
     <include refid="Base_Column_List" />
     from admin_info
     where id = #{id,jdbcType=VARCHAR}
   </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from admin_info
     where id = #{id,jdbcType=VARCHAR}
@@ -193,7 +196,7 @@
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.cbkj_core.beans.AdminInfo">
-    update admin_info a,(select count(1) cun from admin_info c where c.name = #{name} and c.id != #{id}) b
+    update admin_info a,`admin_info_rule` d ,(select count(1) cun from admin_info c where c.name = #{name} and c.id != #{id}) b
     set a.name = #{name,jdbcType=VARCHAR},
       a.sex = #{sex,jdbcType=VARCHAR},
       a.update_date = now(),
@@ -202,7 +205,8 @@
       a.name_zh = #{nameZh,jdbcType=VARCHAR},
       a.user_heand = #{userHeand,jdbcType=VARCHAR},
       a.email = #{email,jdbcType=VARCHAR},
-    where id = #{id,jdbcType=VARCHAR} and b.cun = 0
+      d.rid = #{rid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR} and b.cun = 0 and a.id = d.admin_id
   </update>
 
 
@@ -216,13 +220,11 @@
   <select id="getPageDatas" parameterType="AdminInfo" resultType="Map">
     SELECT a.id,a.name,a.password,a.sex,a.status,a.create_date,a.create_id,a.update_date,a.last_ip
     ,a.phone,a.address,a.name_zh as nameZh,a.user_heand,a.email
-    ,GROUP_CONCAT(r.rname_zh) rnamess,c.name createName FROM `admin_info` a
+    ,r.rname_zh rnamess,c.name createName FROM `admin_info` a
     ,admin_info_rule ar,admin_rule r,admin_info c  WHERE c.id = a.create_id AND a.id=ar.admin_id AND ar.rid = r.rid
      <if test="name != null">
        and a.name like CONCAT('%',#{name},'%')
-
      </if>
-     GROUP BY a.id
 
   </select>
 
@@ -235,4 +237,32 @@
 
     insert into admin_info_rule (ir_id,rid,admin_id) VALUES (#{irID},#{rid},#{adminID})
   </insert>
+
+  <update id="updatePwd" parameterType="Map">
+      update admin_info set password = #{newPwd} where id in
+      <foreach collection="ids" item="item" open="(" separator="," close=")"  >
+          #{item}
+      </foreach>
+  </update>
+
+  <update id="updateStatus" parameterType="Map">
+      update admin_info set status = #{status} where id =#{id}
+
+  </update>
+
+  <delete id="deleteAdminRole" parameterType="ArrayList">
+
+      delete from admin_info_rule where admin_id in
+      <foreach collection="array" item="item" open="(" separator="," close=")">
+        #{item}
+      </foreach>
+  </delete>
+
+  <delete id="deleteBylis" parameterType="ArrayList">
+      delete from admin_info where id in
+      <foreach collection="array" item="item" open="(" separator="," close=")">
+          #{item}
+      </foreach>
+
+  </delete>
 </mapper>

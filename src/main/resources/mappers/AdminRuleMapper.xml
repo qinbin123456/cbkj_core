@@ -28,7 +28,7 @@
       create_date, admin_id, rname_zh,index_url
       )
     values (#{rid,jdbcType=VARCHAR}, #{rname,jdbcType=VARCHAR}, #{rdescr,jdbcType=VARCHAR},
-      #{createDate,jdbcType=TIMESTAMP}, #{adminId,jdbcType=VARCHAR}, #{rnameZh,jdbcType=VARCHAR}
+      now(), #{adminId,jdbcType=VARCHAR}, #{rnameZh,jdbcType=VARCHAR}
       ,#{indexUrl,jdbcType=VARCHAR}
       )
   </insert>
@@ -44,9 +44,7 @@
       <if test="rdescr != null">
         rdescr,
       </if>
-      <if test="createDate != null">
-        create_date,
-      </if>
+
       <if test="adminId != null">
         admin_id,
       </if>
@@ -67,9 +65,7 @@
       <if test="rdescr != null">
         #{rdescr,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null">
-        #{createDate,jdbcType=TIMESTAMP},
-      </if>
+
       <if test="adminId != null">
         #{adminId,jdbcType=VARCHAR},
       </if>
@@ -90,9 +86,7 @@
       <if test="rdescr != null">
         rdescr = #{rdescr,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null">
-        create_date = #{createDate,jdbcType=TIMESTAMP},
-      </if>
+
       <if test="adminId != null">
         admin_id = #{adminId,jdbcType=VARCHAR},
       </if>
@@ -109,10 +103,17 @@
     update admin_rule
     set rname = #{rname,jdbcType=VARCHAR},
       rdescr = #{rdescr,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP},
-      admin_id = #{adminId,jdbcType=VARCHAR},
       rname_zh = #{rnameZh,jdbcType=VARCHAR},
       index_url = #{indexUrl,jdbcType=VARCHAR}
     where rid = #{rid,jdbcType=VARCHAR}
   </update>
+
+  <select id="getPageDatas" parameterType="AdminRule" resultType="Map">
+     select r.rid, r.rname, r.rdescr, r.create_date, r.admin_id, r.rname_zh,r.index_url
+     ,a.name createName
+     from admin_rule r,admin_info a where a.id = r.admin_id
+     <if test="rname != null and rname.length()>0">
+       and r.rname_zh like CONCAT('%',trim(#{rname}),'%')
+     </if>
+  </select>
 </mapper>
