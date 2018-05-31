@@ -217,7 +217,7 @@ function authority(ids){
                 var ids="";
                 $(formBody).find("input[type='checkbox']:checked").each(function(){
                     var val = $(this).val();
-                    if(null != val && val != undefined && val != "no"){
+                    if(null != val && val != undefined && val != "no" && val!="on"){
                         ids += (val+",");
                     }
                 })

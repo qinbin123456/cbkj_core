@@ -22,4 +22,11 @@ layui.use(['form', 'layedit', 'laydate'], function() {
         // });
 
     }
+    $(".iconCls").click(function(){
+        alert("选择图标");
+    });
+
+    $(".btnClass").click(function(){
+       alert("选择按钮颜色");
+    });
 })
