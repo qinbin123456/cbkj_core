@@ -107,4 +107,19 @@ public class SysAdminRuleController{
         return result;
     }
 
+    @RequestMapping("rule/authority")
+    @ResponseBody
+    @LogAnnotaion(description = "权限设置")
+    @TokenAnnotaion(submitP = true)
+    public Object authority(String mids,String rid){
+        ResEntity result = null;
+        try {
+            result = adminRuleService.insertauthority(mids,rid);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = new ResEntity(false,"服务异常，请稍后重试",null);
+        }
+        return result;
+    }
 }

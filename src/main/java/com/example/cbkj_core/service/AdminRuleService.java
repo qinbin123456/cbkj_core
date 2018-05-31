@@ -160,4 +160,22 @@ public class AdminRuleService {
         }
         return resultList;
     }
+
+    public ResEntity insertauthority(String mids, String rid) throws Exception{
+
+        long rows = adminMenuMapper.deleteRmByRid(rid);
+        if(!StringUtils.isBlank(mids)){
+            List<Map<String,Object>> resultList = new ArrayList<>();
+            for(String mid:mids.split(",")){
+                Map<String,Object> m = new HashMap<>();
+                m.put("rmid",IDUtil.getID());
+                m.put("rid",rid);
+                m.put("mid",mid);
+                resultList.add(m);
+            }
+            long inserRows = adminMenuMapper.insertListM(resultList);
+        }
+        return new ResEntity(true,"SUCCESS",null);
+
+    }
 }

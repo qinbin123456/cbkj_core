@@ -12,7 +12,36 @@ public class Menu {
     private String href;
     private String icon;
     private int parent_mid;
+
+    private String menuType;
+    private String btnClass;
+    private String btnType;
+
     private List<Menu> children;
+
+    public String getMenuType() {
+        return menuType;
+    }
+
+    public void setMenuType(String menuType) {
+        this.menuType = menuType;
+    }
+
+    public String getBtnClass() {
+        return btnClass;
+    }
+
+    public void setBtnClass(String btnClass) {
+        this.btnClass = btnClass;
+    }
+
+    public String getBtnType() {
+        return btnType;
+    }
+
+    public void setBtnType(String btnType) {
+        this.btnType = btnType;
+    }
 
     public int getPid() {
         return pid;

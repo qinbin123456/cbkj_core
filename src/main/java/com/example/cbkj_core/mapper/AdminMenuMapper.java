@@ -11,11 +11,7 @@ public interface AdminMenuMapper {
 
     int insert(AdminMenu record);
 
-    int insertSelective(AdminMenu record);
-
     AdminMenu selectByPrimaryKey(Integer mid);
-
-    int updateByPrimaryKeySelective(AdminMenu record);
 
     int updateByPrimaryKey(AdminMenu record);
 
@@ -26,4 +22,12 @@ public interface AdminMenuMapper {
     List<Map<String,Object>> selectAllMenu();
 
     List<Map<String,Object>> getMenuByRid(String id);
+
+    long deleteRmByRid(String rid);
+
+    long insertListM(List<Map<String,Object>> resultList);
+
+    List<Map<String,Object>> getPageDatas(AdminMenu adminMenu);
+
+    List<Map<String,Object>> selectAllMenuByM();
 }

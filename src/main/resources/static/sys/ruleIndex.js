@@ -196,9 +196,9 @@ function authority(ids){
     var url = "rule/authority/toPage?ID="+ids;
     var qb_Index = parent.layer.open({
         type: 2,
-        content:[url, 'no'],
+        content:[url],
         title:"权限设置",
-        area:["400px","480px"],
+        area:["470px","500px"],
         id:"QB_UPDATE",
         shade:0.7,
         scrollbar: false,
@@ -214,22 +214,31 @@ function authority(ids){
             var formBody = $(body).find(".layui-form");
             if(formBody.length > 0) {
 
-               var ids="";
-               $(formBody).find("input[type='checkbox']:checked").each(function(){
+                var ids="";
+                $(formBody).find("input[type='checkbox']:checked").each(function(){
                     var val = $(this).val();
                     if(null != val && val != undefined && val != "no"){
                         ids += (val+",");
                     }
-               })
-               if(ids != ""){
-                   ids = ids.substring(0,ids.length-1);
-               }
-               params.token = $(formBody).find("input[name='token']").val();
-               params.rid = $(formBody).find("input[name='rid']").val();
-               params.mids = ids;
-               console.log(params);
-            }
+                })
+                if(ids != ""){
+                    ids = ids.substring(0,ids.length-1);
+                }
+                params.token = $(formBody).find("input[name='token']").val();
+                params.rid = $(formBody).find("input[name='rid']").val();
+                params.mids = ids;
+                var url = "../rule/authority";
+                $.post(url, params, function (result) {
+                    if (result.status) {
 
+                        // lodingIndex = layer.load(2, {time: 10 * 1000});
+                        // tableIns.reload({page: {curr: 1}});
+                        parent.layer.close(qb_Index);
+                    } else {
+                        parent.layer.msg(result.message);
+                    }
+                }, "json");
+            }
         },btn2: function(index, layero){
             //取消需要做些什么呢
         }

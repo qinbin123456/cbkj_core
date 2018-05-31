@@ -25,7 +25,35 @@ public class AdminMenu {
 
     private String cteateId;
 
+    private String menuType;
+    private String btnClass;
+    private String btnType;
+
     private List<AdminRule> rules;
+
+    public String getMenuType() {
+        return menuType;
+    }
+
+    public void setMenuType(String menuType) {
+        this.menuType = menuType;
+    }
+
+    public String getBtnClass() {
+        return btnClass;
+    }
+
+    public void setBtnClass(String btnClass) {
+        this.btnClass = btnClass;
+    }
+
+    public String getBtnType() {
+        return btnType;
+    }
+
+    public void setBtnType(String btnType) {
+        this.btnType = btnType;
+    }
 
     public List<AdminRule> getRules() {
         return rules;

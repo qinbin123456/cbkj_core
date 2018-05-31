@@ -44,4 +44,9 @@ public class InitController {
         return adminMenuService.getMenuByPID(AdminUtils.getCurrentHr().getId(),parent_id);
     }
 
+    @RequestMapping("public/toConduct")
+    public String toConduct(){
+        return "error/conduct";
+    }
+
 }
