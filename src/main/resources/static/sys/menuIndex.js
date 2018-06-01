@@ -40,7 +40,7 @@ layui.use('table', function(){
                         else
                             return "未知";
                     }
-             }
+            }
             ,{field:'parentName', width:150,align:'center', title: '上级菜单', sort: true}
             ,{field:'createName', width:100,align:'center', title: '创建者', sort: true}
             ,{field:'create_date', title: '创建时间',align:'center', templet:
@@ -135,7 +135,7 @@ layui.use('table', function(){
                 }, function(){
 
                     params.ids = ids;
-                   console.log("删除菜单");
+                    console.log("删除菜单");
 
                 }, function(){
 
@@ -175,11 +175,65 @@ function updateRow(ids,title,type){
         },
         btn: ['确定', '取消']
         ,yes: function(index, layero){
+
             var body = parent.layer.getChildFrame('body', index);
             var params = {};
             var formBody = $(body).find(".layui-form");
+
             if(formBody.length > 0){
-               //获取参数 提交等操作
+                params.mid = $(body).find("input[name='mid']").val();
+                params.token = $(body).find("input[name='token']").val();
+                params.mname = $(body).find("input[name='mname']").val();
+                params.url = $(body).find("input[name='url']").val();
+                params.path = $(body).find("input[name='path']").val();
+                params.iconcls = $(body).find("input[name='iconCls']").val();
+                params.enabled = $(body).find("input[name='enabled']:checked").val();
+                params.parentMid = $(body).find("select[name='parentId']").val();
+                params.menuType = $(body).find("input[name='menuType']:checked").val();
+                params.btnClass = $(body).find("input[name='btnClass']").val();
+                params.btnType = $(body).find("input[name='btnType']").val();
+
+                if(null == params.mname || params.mname.trim() == ""){
+                    parent.layer.msg("菜单名称必填哦");
+                    return ;
+                }
+                if(null == params.url || params.url.trim() == ""){
+                    parent.layer.msg("过滤路径必填哦");
+                    return ;
+                }
+                if(null == params.path || params.path.trim() == ""){
+                    parent.layer.msg("请求路径必填哦");
+                    return ;
+                }
+                if(null == params.iconcls || params.iconcls.trim() == ""){
+                    parent.layer.msg("菜单图标必选哦");
+                    return ;
+                }
+                if(params.menuType == 2){
+                    if(null == params.btnClass || params.btnClass.trim() == ""){
+                        parent.layer.msg("菜单风格必选哦");
+                        return ;
+                    }
+                    if(null == params.btnType || params.btnType.trim() == ""){
+                        parent.layer.msg("按钮函数必填哦");
+                        return ;
+                    }
+                }
+
+                var url = type === "new"?"../menu/insert":"../menu/update";
+                $.post(url,params,function(result){
+                    if(result.status){
+                        if(type === "new"){
+                            lodingIndex = layer.load(2, {time: 10*1000});
+                            tableIns.reload({page: {curr: 1 }});
+                        }else{
+                            $(".layui-laypage-btn").click();
+                        }
+                        parent.layer.close(qb_Index);
+                    }else{
+                        parent.layer.msg(result.message);
+                    }
+                },"json");
             }else{
                 parent.layer.close(qb_Index);
             }

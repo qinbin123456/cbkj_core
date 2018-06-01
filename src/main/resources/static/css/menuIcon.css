@@ -1,0 +1,16 @@
+body{background-color:#ffffff;}
+.icon_f{    /* margin: 6px; */
+    display: inline-block;
+    /* padding: 8px; */
+    width: 40px;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #e2e2e2;
+    border-radius: 3px;
+    margin-top: 5px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+.sel{border: 1px solid #FF5722;color:#FF5722;}

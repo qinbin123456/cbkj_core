@@ -132,8 +132,10 @@ layui.define(['jquery','elements','layer','common'],function(exports){
 					title += '<i class="larry-icon ' + data.icon + '" aria-hidden="true"></i>';
 				} else if (data.icon.indexOf('icon-') !== -1) {
 					title += '<i class="iconfont ' + data.icon + '" aria-hidden="true"></i>';
-				} else {
-					title += '<i class="layui-icon">' + data.icon + '</i>';
+				}else if (data.icon.indexOf('layui-') !== -1){//定义图库QB
+                    title += '<i class="layui-icon">' + data.icon + '</i>';
+                } else {
+                    title += '<i class="iconfont_" aria-hidden="true">'+data.icon+'</i>';
 				}
 			}
 			title += '<em>' + data.title + '</em>';

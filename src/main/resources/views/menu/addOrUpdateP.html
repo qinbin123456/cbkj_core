@@ -18,7 +18,7 @@
         <!-- 防止重复提交 必须字段 -->
         <input type="hidden" name="token" th:value="${session.token}"/>
 
-        <input type="hidden" name="mid" th:value="${id}"/>
+        <input type="hidden" name="mid" th:value="${mid}"/>
 
         <div class="layui-form-item">
             <label class="layui-form-label">上级菜单</label>
@@ -73,15 +73,15 @@
         <div class="layui-form-item">
             <label class="layui-form-label">菜单图标</label>
             <div class="layui-input-inline" style="width:275px;">
-                <input type="text"  name="iconCls" lay-verify="iconCls" autocomplete="off" placeholder="菜单图标" class="layui-input">
+                <input type="text" readonly="readonly"  name="iconCls" lay-verify="iconCls" autocomplete="off" placeholder="菜单图标" class="layui-input">
             </div>
             <div class="layui-btn iconCls">点击选择</div>
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">按钮颜色</label>
+            <label class="layui-form-label">按钮风格</label>
             <div class="layui-input-inline" style="width:275px;">
-                <input type="text"  name="btnClass" lay-verify="btnClass" autocomplete="off" placeholder="类型为按钮时必填" class="layui-input">
+                <input type="text" readonly="readonly"  name="btnClass" lay-verify="btnClass" autocomplete="off" placeholder="类型为按钮时必填" class="layui-input">
             </div>
             <div class="layui-btn btnClass">点击选择</div>
         </div>

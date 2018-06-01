@@ -118,7 +118,11 @@ public class AdminMenuService {
      */
     public ResEntity insert(AdminMenu adminMenu) {
         adminMenu.setCteateId(AdminUtils.getCurrentHr().getId());
-        return null;
+        long rows = adminMenuMapper.insert(adminMenu);
+        if(rows >0){
+            return new ResEntity(true,"SUCCESS",rows);
+        }
+        return new ResEntity(false,"新增失败，系统错误！",null);
     }
 
     /**

@@ -141,6 +141,8 @@ public class AdminRuleService {
                     m.put("value",value);
                     if(ruleM.containsKey(value)){
                         m.put("checked",true);
+                    }else{
+                        m.put("checked",false);
                     }
                     List<Map<String,Object>> dataLis = new ArrayList<>();
 

@@ -37,6 +37,15 @@ public class SysMenuController {
         return "menu/addOrUpdateP";
     }
 
+    @RequestMapping("menu/iconP")
+    public String iconP(){
+        return "menu/iconP";
+    }
+
+    @RequestMapping("menu/btnP")
+    public String btnP(){
+        return "menu/btnP";
+    }
 
     @RequestMapping("menu/update/toPage")
     @TokenAnnotaion(toP = true)

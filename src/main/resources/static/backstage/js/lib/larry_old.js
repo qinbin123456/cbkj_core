@@ -213,26 +213,24 @@ layui.define(['jquery', 'layer', 'element', 'common'], function (exports) {
      * @return    {[type]}                      [返回Html字符串]
      */
     function getHtml(data) {
-    var ulHtml = '';
-    for (var i = 0; i < data.length; i++) {
-        if (data[i].pid !== false && data[i].pid !== 'undefined') {
-            ulHtml += '<li class="layui-nav-item" data-pid="' + data[i].pid + '">';
-        } else if (data[i].spread) {
-            ulHtml += '<li class="layui-nav-item">';
-        } else {
+        var ulHtml = '';
+        for (var i = 0; i < data.length; i++) {
+            if (data[i].pid !== false && data[i].pid !== 'undefined') {
+                ulHtml += '<li class="layui-nav-item" data-pid="' + data[i].pid + '">';
+            } else if (data[i].spread) {
+                ulHtml += '<li class="layui-nav-item">';
+            } else {
                 ulHtml += '<li class="layui-nav-item">';
             }
             if (data[i].children !== undefined && data[i].children !== null && data[i].children.length > 0) {
                 ulHtml += '<a>';
                 if (data[i].icon !== undefined && data[i].icon !== '') {
-
                     if (data[i].icon.indexOf('larry-') !== -1) {
                         ulHtml += '<i class="larry-icon ' + data[i].icon + '" data-icon="' + data[i].icon + '" aria-hidden="true" ></i>';
                     } else if (data[i].icon.indexOf('icon-') !== -1) {
                         ulHtml += '<i class="iconfont' + data[i].icon + '" data-icon="' + data[i].icon + '" aria-hidden="true"></i>';
-                    } else if(data[i].icon.indexOf('&#xe') !== -1){//自定义图库QB
-                        ulHtml += '<i class="iconfont_" data-icon="' + data[i].icon + '" aria-hidden="true">'+data[i].icon+'</i>';
-                    } else {
+                    }
+                    else {
                         ulHtml += '<i class="layui-icon" data-icon="' + data[i].icon + '">' + data[i].icon + '</i>';
                     }
                 }
@@ -243,11 +241,8 @@ layui.define(['jquery', 'layer', 'element', 'common'], function (exports) {
                     ulHtml += '<dd>';
                     ulHtml += '<a data-url="' + data[i].children[j].href + '">';
                     if (data[i].children[j].icon !== undefined && data[i].children[j].icon !== '') {
-
                         if (data[i].children[j].icon.indexOf('larry-') !== -1) {
                             ulHtml += '<i class="larry-icon ' + data[i].children[j].icon + '" data-icon="' + data[i].children[j].icon + '" aria-hidden="true" ></i>';
-                        } else if(data[i].children[j].icon.indexOf('&#xe') !== -1){//自定义图库QB
-                            ulHtml += '<i class="iconfont_" data-icon="' + data[i].children[j].icon + '" aria-hidden="true">'+data[i].children[j].icon+'</i>';
                         } else if (data[i].icon.indexOf('icon-') !== -1) {
                             ulHtml += '<i class="iconfont' + data[i].children[j].icon + '" data-icon="' + data[i].children[j].icon + '" aria-hidden="true"></i>';
                         } else {
@@ -263,13 +258,10 @@ layui.define(['jquery', 'layer', 'element', 'common'], function (exports) {
                 var dataUrl = (data[i].href !== undefined && data[i].href !== '') ? 'data-url="' + data[i].href + '"' : '';
                 ulHtml += '<a ' + dataUrl + '>';
                 if (data[i].icon !== undefined && data[i].icon !== '') {
-
                     if (data[i].icon.indexOf('larry-') !== -1) {
                         ulHtml += '<i class="larry-icon ' + data[i].icon + '" data-icon="' + data[i].icon + '" aria-hidden="true"></i>';
                     } else if (data[i].icon.indexOf('icon-') !== -1) {
                         ulHtml += '<i class="iconfont ' + data[i].icon + '" data-icon="' + data[i].icon + '" aria-hidden="true"></i>';
-                    } else if (data[i].icon.indexOf('&#xe') !== -1){//定义图库QB
-                        ulHtml += '<i class="iconfont_" data-icon="' + data[i].icon + '" aria-hidden="true">'+data[i].icon+'</i>';
                     } else {
                         ulHtml += '<i class="layui-icon" data-icon="' + data[i].icon + '">' + data[i].icon + '</i>';
                     }

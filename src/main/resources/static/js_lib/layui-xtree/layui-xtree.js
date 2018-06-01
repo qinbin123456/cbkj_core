@@ -121,18 +121,25 @@ layuiXtree.prototype.dataBind = function (d) {
             var xtree_ischecked = '';
             var xtree_isdisabled = d[i].disabled ? ' disabled="disabled" ' : '';
             _this._domStr += '<div class="layui-xtree-item">';
+            //有可能父级选中子级不需要选中 QB
+            xtree_isend = 'data-xend="1"';
+            xtree_ischecked = d[i].checked ? ' checked ' : '';
+            xtree_isdisabled = d[i].disabled ? ' disabled="disabled" ' : '';
+
             if (d[i].data.length > 0)
-                _this._domStr += '<i class="layui-icon layui-xtree-icon" data-xtree="' + (_this._isopen ? '1' : '0') + '">' + (_this._isopen ? _this._iconOpen : _this._iconClose) + '</i>';
+                _this._domStr += '<i class="layui-icon layui-xtree-icon iconfont_" data-xtree="' + (_this._isopen ? '1' : '0') + '">' + (_this._isopen ? _this._iconOpen : _this._iconClose) + '</i>';
             else {
-                _this._domStr += '<i class="layui-icon layui-xtree-icon-null">' + _this._iconEnd + '</i>';
-                xtree_isend = 'data-xend="1"';
-                xtree_ischecked = d[i].checked ? ' checked ' : '';
-                xtree_isdisabled = d[i].disabled ? ' disabled="disabled" ' : '';
+                _this._domStr += '<i class="layui-icon layui-xtree-icon-null iconfont_">' + _this._iconEnd + '</i>';
+                // xtree_isend = 'data-xend="1"';
+                // xtree_ischecked = d[i].checked ? ' checked ' : '';
+                // xtree_isdisabled = d[i].disabled ? ' disabled="disabled" ' : '';
+
             }
             _this._domStr += '<input type="checkbox" class="layui-xtree-checkbox" ' + xtree_isend + xtree_ischecked + xtree_isdisabled + ' value="' + d[i].value + '" title="' + d[i].title + '" lay-skin="primary" lay-filter="xtreeck' + _this._containerid + '">';
             _this.dataBind(d[i].data);
             _this._domStr += '</div>';
         }
+
     }
 }
 
@@ -146,6 +153,7 @@ layuiXtree.prototype.Rendering = function () {
     var xtree_ckitems = _this.getByClassName('layui-xtree-checkbox');
     for (var i = 0; i < xtree_ckitems.length; i++) {
         if (xtree_ckitems[i].getAttribute('data-xend') == '1' && xtree_ckitems[i].checked) {
+            console.log(xtree_ckitems[i].title);//QB
             _this.ParentCheckboxChecked(xtree_ckitems[i]);
         }
     }
@@ -167,7 +175,7 @@ layuiXtree.prototype.Rendering = function () {
 
     for (var i = 0; i < xtree_icons.length; i++) {
         xtree_icons[i].style.position = "relative";
-        xtree_icons[i].style.top = "3px";
+        xtree_icons[i].style.top = "0px";
         xtree_icons[i].style.margin = "0 5px 0 0";
         xtree_icons[i].style.fontSize = "18px";
         xtree_icons[i].style.color = _this._isopen ? _this._iconOpenColor : _this._iconCloseColor;
@@ -197,7 +205,7 @@ layuiXtree.prototype.Rendering = function () {
 
     for (var i = 0; i < xtree_nullicons.length; i++) {
         xtree_nullicons[i].style.position = "relative";
-        xtree_nullicons[i].style.top = "3px";
+        xtree_nullicons[i].style.top = "0px";
         xtree_nullicons[i].style.margin = "0 5px 0 0";
         xtree_nullicons[i].style.fontSize = "18px";
         xtree_nullicons[i].style.color = _this._iconEndColor;
@@ -262,14 +270,14 @@ layuiXtree.prototype.ParendCheck = function (ckelem) {
                 xtree_count++;
             }
         }
-
-        if (xtree_count <= 0) {
-            _this.getChildByClassName(xtree_p, 'layui-xtree-checkbox')[0].checked = false;
-            _this.getChildByClassName(xtree_p, 'layui-xtree-checkbox')[0].nextSibling.classList.remove('layui-form-checked');
-        } else {
+        //QB 子级取消不应该控制父级也取消
+        // if (xtree_count <= 0) {
+        //     _this.getChildByClassName(xtree_p, 'layui-xtree-checkbox')[0].checked = false;
+        //     _this.getChildByClassName(xtree_p, 'layui-xtree-checkbox')[0].nextSibling.classList.remove('layui-form-checked');
+        // } else {
             _this.getChildByClassName(xtree_p, 'layui-xtree-checkbox')[0].checked = true;
             _this.getChildByClassName(xtree_p, 'layui-xtree-checkbox')[0].nextSibling.classList.add('layui-form-checked');
-        }
+        // }
         this.ParendCheck(_this.getChildByClassName(xtree_p, 'layui-xtree-checkbox')[0]);
     }
 }
