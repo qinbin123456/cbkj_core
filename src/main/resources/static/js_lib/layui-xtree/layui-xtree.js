@@ -147,7 +147,6 @@ layuiXtree.prototype.Rendering = function () {
     var xtree_ckitems = _this.getByClassName('layui-xtree-checkbox');
     for (var i = 0; i < xtree_ckitems.length; i++) {
         if (xtree_ckitems[i].getAttribute('data-xend') == '1' && xtree_ckitems[i].checked) {
-            console.log(xtree_ckitems[i].title);//QB
             _this.ParentCheckboxChecked(xtree_ckitems[i]);
         }
     }
