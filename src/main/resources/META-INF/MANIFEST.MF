@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Class-Path: lib\spring-context-5.0.6.RELEASE.jar lib\hibernate-validat
+ or-6.0.9.Final.jar lib\jboss-logging-3.3.2.Final.jar lib\tomcat-embed
+ -websocket-8.5.31.jar lib\spring-messaging-5.0.6.RELEASE.jar lib\snak
+ eyaml-1.19.jar lib\tomcat-embed-el-8.5.31.jar lib\validation-api-2.0.
+ 1.Final.jar lib\spring-boot-starter-thymeleaf-2.0.2.RELEASE.jar lib\s
+ pring-core-5.0.6.RELEASE.jar lib\spring-beans-5.0.6.RELEASE.jar lib\j
+ ackson-datatype-jsr310-2.9.5.jar lib\pagehelper-spring-boot-autoconfi
+ gure-1.2.3.jar lib\druid-1.0.29.jar lib\logback-classic-1.2.3.jar lib
+ \aspectjweaver-1.8.13.jar lib\xmpcore-5.1.2.jar lib\mybatis-spring-bo
+ ot-autoconfigure-1.3.2.jar lib\spring-boot-starter-security-2.0.2.REL
+ EASE.jar lib\thymeleaf-extras-java8time-3.0.1.RELEASE.jar lib\mysql-c
+ onnector-java-5.1.46.jar lib\thymeleaf-spring5-3.0.9.RELEASE.jar lib\
+ spring-security-config-5.0.5.RELEASE.jar lib\tomcat-embed-core-8.5.31
+ .jar lib\spring-expression-5.0.6.RELEASE.jar lib\spring-jdbc-5.0.6.RE
+ LEASE.jar lib\spring-boot-starter-json-2.0.2.RELEASE.jar lib\jackson-
+ core-2.9.5.jar lib\xercesImpl-2.8.1.jar lib\jackson-module-parameter-
+ names-2.9.5.jar lib\thymeleaf-3.0.9.RELEASE.jar lib\spring-boot-devto
+ ols-2.0.2.RELEASE.jar lib\log4j-to-slf4j-2.10.0.jar lib\mybatis-sprin
+ g-1.3.2.jar lib\mybatis-spring-boot-starter-1.3.2.jar lib\xml-apis-1.
+ 4.01.jar lib\commons-logging-1.1.1.jar lib\spring-boot-starter-loggin
+ g-2.0.2.RELEASE.jar lib\attoparser-2.0.4.RELEASE.jar lib\spring-tx-5.
+ 0.6.RELEASE.jar lib\spring-jcl-5.0.6.RELEASE.jar lib\jul-to-slf4j-1.7
+ .25.jar lib\spring-boot-starter-jdbc-2.0.2.RELEASE.jar lib\spring-boo
+ t-starter-aop-2.0.2.RELEASE.jar lib\aliyun-sdk-oss-2.8.2.jar lib\comm
+ ons-lang-2.5.jar lib\pagehelper-5.1.2.jar lib\json-lib-2.4-jdk15.jar 
+ lib\commons-codec-1.11.jar lib\unbescape-1.1.5.RELEASE.jar lib\spring
+ -security-web-5.0.5.RELEASE.jar lib\spring-boot-starter-web-2.0.2.REL
+ EASE.jar lib\mybatis-3.4.6.jar lib\HikariCP-2.7.9.jar lib\commons-col
+ lections-3.2.1.jar lib\jackson-databind-2.9.5.jar lib\logback-core-1.
+ 2.3.jar lib\slf4j-api-1.7.25.jar lib\pagehelper-spring-boot-starter-1
+ .2.3.jar lib\fastjson-1.2.32.jar lib\commons-beanutils-1.8.0.jar lib\
+ jdom-1.1.jar lib\spring-boot-autoconfigure-2.0.2.RELEASE.jar lib\jack
+ son-annotations-2.9.0.jar lib\jconsole.jar lib\spring-webmvc-5.0.6.RE
+ LEASE.jar lib\spring-aop-5.0.6.RELEASE.jar lib\httpcore-4.4.9.jar lib
+ \jackson-datatype-jdk8-2.9.5.jar lib\spring-websocket-5.0.6.RELEASE.j
+ ar lib\spring-boot-starter-tomcat-2.0.2.RELEASE.jar lib\javax.annotat
+ ion-api-1.3.2.jar lib\httpclient-4.5.5.jar lib\log4j-api-2.10.0.jar l
+ ib\spring-boot-starter-websocket-2.0.2.RELEASE.jar lib\spring-boot-st
+ arter-2.0.2.RELEASE.jar lib\tools.jar lib\spring-boot-2.0.2.RELEASE.j
+ ar lib\spring-web-5.0.6.RELEASE.jar lib\metadata-extractor-2.6.2.jar 
+ lib\spring-security-core-5.0.5.RELEASE.jar lib\jsqlparser-1.0.jar lib
+ \ezmorph-1.0.6.jar lib\classmate-1.3.4.jar
+Main-Class: com.example.cbkj_core.CbkjCoreApplication
+

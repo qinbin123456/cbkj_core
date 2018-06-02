@@ -158,12 +158,16 @@ layuiXtree.prototype.Rendering = function () {
     var xtree_nullicons = _this.getByClassName('layui-xtree-icon-null');
 
     for (var i = 0; i < xtree_items.length; i++) {
-        if (xtree_items[i].parentNode == _this._container)
+        if (xtree_items[i].parentNode == _this._container){
+
             xtree_items[i].style.margin = '10px 0 0 10px';
-        else {
+        }else {
             xtree_items[i].style.margin = '10px 0 0 45px';
+
             if (!_this._isopen) xtree_items[i].style.display = 'none';
         }
+        // xtree_items[i].style.borderLeft = '1px dashed #d2d2d2';
+        // xtree_items[i].style.position = 'relative';
     }
 
     for (var i = 0; i < xtree_icons.length; i++) {

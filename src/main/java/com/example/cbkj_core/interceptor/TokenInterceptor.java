@@ -36,13 +36,17 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                         response.setContentType("application/json;charset=utf-8");
                         PrintWriter out = response.getWriter();
                         StringBuffer sb = new StringBuffer();
-                        sb.append("{\"status\":\"error\",\"msg\":\"");
-                        sb.append("重复提交");
+                        sb.append("{\"status\":false,\"message\":\"");
+                        sb.append("请不要重复点击！！");
                         sb.append("\"}");
                         out.write(sb.toString());
                         out.flush();
                         out.close();
                         return false;
+                    }else{
+                        String token = request.getSession(true).getAttribute("token").toString();
+                        request.getSession(true).removeAttribute("token");
+                        request.getSession(true).setAttribute("tempToken",token);
                     }
                 }
             }
