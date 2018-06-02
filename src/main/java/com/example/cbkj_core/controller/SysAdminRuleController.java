@@ -1,5 +1,6 @@
 package com.example.cbkj_core.controller;
 
+import com.example.cbkj_core.annotaionUtil.BtnAnnotaion;
 import com.example.cbkj_core.annotaionUtil.LogAnnotaion;
 import com.example.cbkj_core.annotaionUtil.TokenAnnotaion;
 import com.example.cbkj_core.beans.AdminRule;
@@ -20,6 +21,7 @@ public class SysAdminRuleController{
     private AdminRuleService adminRuleService;
 
     @RequestMapping("sys/rule")
+    @BtnAnnotaion(btn = true)
     public String toIndex(){
         return "rule/index";
     }

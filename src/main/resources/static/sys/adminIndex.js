@@ -7,13 +7,7 @@ layui.use('table', function(){
     tableIns = table.render({
         elem: '#admin'
         ,url:'admin/getPages'
-        ,page: { //
-            layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-            ,curr: 1
-            ,groups: 1 //只显示 1 个连续页码
-            ,first: false //不显示首页
-            ,last: false //不显示尾页
-        }
+        ,page:page_
         ,cols: [[//破除
             {checkbox: true}
             ,{field:'name',width:150, title: '管理员'}
@@ -180,7 +174,6 @@ layui.use('table', function(){
                     params.ids = ids;
                     $.post("../admin/deleteLis",params,function(result){
                         if(result.status){
-
                             $(".layui-laypage-btn").click();
                             parent.layer.closeAll();
 

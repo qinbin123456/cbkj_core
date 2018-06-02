@@ -93,4 +93,12 @@ public class MD5Util {
 		return md5(text, false);
 	}
 
+	public static void main(String[] args){
+		for(int i = 1536;i<3041;i++){
+			Integer e = i;
+			String xe = e.toHexString(e);
+			System.out.println(".xe-"+xe+":before { content: \"\\e"+xe+"\"; }");
+		}
+	}
+
 }

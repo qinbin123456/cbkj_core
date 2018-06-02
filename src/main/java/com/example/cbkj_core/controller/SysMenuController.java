@@ -1,5 +1,6 @@
 package com.example.cbkj_core.controller;
 
+import com.example.cbkj_core.annotaionUtil.BtnAnnotaion;
 import com.example.cbkj_core.annotaionUtil.LogAnnotaion;
 import com.example.cbkj_core.annotaionUtil.TokenAnnotaion;
 import com.example.cbkj_core.beans.AdminMenu;
@@ -19,6 +20,7 @@ public class SysMenuController {
     private AdminMenuService adminMenuService;
 
     @RequestMapping("sys/menu")
+    @BtnAnnotaion(btn = true)
     public String toIndex(){
         return "menu/index";
     }
@@ -51,7 +53,7 @@ public class SysMenuController {
     @TokenAnnotaion(toP = true)
     public String updateP(Model model, String ID){
         model.addAttribute("menulis",adminMenuService.getAllMenuListM());
-        model.addAttribute("id",ID);
+        model.addAttribute("mid",ID);
         return "menu/addOrUpdateP";
     }
 
@@ -98,8 +100,8 @@ public class SysMenuController {
     @RequestMapping(value="menu/changeEnabled")
     @LogAnnotaion(description = "禁用启用菜单")
     @ResponseBody
-    public Object changeEnabled(String id,String enabled){
-        ResEntity result  = adminMenuService.updateEnableds(id,enabled);
+    public Object changeEnabled(String mid,Integer enabled){
+        ResEntity result  = adminMenuService.updateEnableds(mid,enabled);
         return result;
     }
 

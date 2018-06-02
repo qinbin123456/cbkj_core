@@ -7,30 +7,30 @@ layui.use('table', function(){
 
     var form = layui.form
     form.on('switch(sexStatus)', function(data){
-        var status = (this.checked?"2":"1");
+        var status = (this.checked?2:1);
         var mid = data.value;
         var params = {};
         params.mid = mid;
-        params.status = status;
-        console.log(params);
+        params.enabled = status;
+        $.post("../menu/changeEnabled",params,function(result){
+            if(!result.status){
+                layer.msg(result.message);
+            }else{
+                $(".layui-laypage-btn").click();
+            }
+        },"JSON");
 
     });
     tableIns = table.render({
         elem: '#qb'
         ,url:'menu/getPages'
-        ,page: { //
-            layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-            ,curr: 1
-            ,groups: 1 //只显示 1 个连续页码
-            ,first: false //不显示首页
-            ,last: false //不显示尾页
-        }
+        ,page: page_
         ,cols: [[//破除
             {checkbox: true}
             ,{field:'mname',width:150, title: '菜单名称'}
             ,{field:'url',width:150, title: '过滤路径'}
             ,{field:'path',width:150, title: '请求路径', sort: true}
-            ,{field:'enabled',width:90, templet: '#switchTpl',align:'center',title: '状态'}
+            ,{field:'enabled',width:90, templet: '#switchTpl',align:'center',title: '状态',width:100}
             ,{field:'menu_type', width:90,align:'center', title: '类型' ,templet:
                     function(d){
                         if(d.menu_type == "1")
@@ -108,9 +108,18 @@ layui.use('table', function(){
             }else if(data.length == 1){
                 var obj = data[0];
                 var params = {};
-                params.id = obj.mid;
+                params.mid = obj.mid;
                 params.enabled = (obj.enabled==1?2:1);
-                console.log("启用禁用");
+
+                $.post("../menu/changeEnabled",params,function(result){
+                    if(result.status){
+                        $(".layui-laypage-btn").click();
+                        parent.layer.closeAll();
+                    }else{
+                        parent.layer.msg(result.message);
+                    }
+                },"JSON");
+
             }else{
                 layer.msg("目前只能单个操作哦");
             }
@@ -135,7 +144,14 @@ layui.use('table', function(){
                 }, function(){
 
                     params.ids = ids;
-                    console.log("删除菜单");
+                    $.post("../menu/deleteLis",params,function(result){
+                        if(result.status){
+                            $(".layui-laypage-btn").click();
+                            parent.layer.closeAll();
+                        }else{
+                            parent.layer.msg(result.message);
+                        }
+                    },"JSON");
 
                 }, function(){
 
@@ -187,7 +203,7 @@ function updateRow(ids,title,type){
                 params.url = $(body).find("input[name='url']").val();
                 params.path = $(body).find("input[name='path']").val();
                 params.iconcls = $(body).find("input[name='iconCls']").val();
-                params.enabled = $(body).find("input[name='enabled']:checked").val();
+                params.enabled = $(body).find("input[name='enabledS']:checked").val();
                 params.parentMid = $(body).find("select[name='parentId']").val();
                 params.menuType = $(body).find("input[name='menuType']:checked").val();
                 params.btnClass = $(body).find("input[name='btnClass']").val();

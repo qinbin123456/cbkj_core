@@ -30,4 +30,12 @@ public interface AdminMenuMapper {
     List<Map<String,Object>> getPageDatas(AdminMenu adminMenu);
 
     List<Map<String,Object>> selectAllMenuByM();
+
+    long updateEnabled(Map<String, Object> params);
+
+    long deleteRMbyMid(String[] split);
+
+    long deleteBylis(String[] split);
+
+    List<Map<String,Object>> getBtnMenuLisByPath(Map<String,Object> params);
 }

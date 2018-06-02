@@ -66,19 +66,19 @@ body{
 }
 /*backstage css start*/
 .logo{
-	    width: 200px;
-    height: 65px;
-    top: 0px;
-    left: 0px;
-    line-height: 65px;
-    margin: 0px;
-    text-align: center;
-    padding-top:4px;
-    /* padding-left: 21px; */
-    font-size: 20px;
-    text-align: center;
-    color: #fff;
-    font-family: sans-serif;
+
+	width: 200px;
+	height: 65px;
+	top: 0px;
+	left: 0px;
+	line-height: 65px;
+	margin: 0px;
+	text-align: center;
+	font-size: 20px;
+	text-align: left;
+	padding-left: 19px;
+	color: #fff;
+	font-family: sans-serif;
 }
 .logo img{
 	display: block;
@@ -797,13 +797,13 @@ ul.layui-tab-title .layui-this:hover{
 	height: 65px;
 }
 .larryTheme-A  .header-menu .layui-main .side-menu-switch{
-	display:inline-block;
+	display: inline-block;
 	vertical-align: top;
 	width: 52px;
 	height: 65px;
 	margin: 0px;
+	line-height: 65px;
 	padding: 0px;
-	top: 4px;
 	left: 0px;
 	overflow: hidden;
 }
@@ -879,7 +879,7 @@ ul.layui-tab-title .layui-this:hover{
 }
 
 .larryTheme-A .larrycms-left{
-	background: #f4f4f5;
+	background: #f2f2f2;
 	top: 65px;
 }
 .larryTheme-A .larrycms-left .layui-nav{

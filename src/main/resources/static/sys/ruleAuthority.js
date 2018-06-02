@@ -6,7 +6,7 @@ layui.use(['form'], function () {
        xthree = new layuiXtree({
             elem: 'xtree3'                  //必填三兄弟之老大
             , form: form                    //必填三兄弟之这才是真老大
-            , data: path_+'/rule/authority/findMenu?id='+id //必填三兄弟之这也算是老大
+            , data: path_+'rule/authority/findMenu?id='+id //必填三兄弟之这也算是老大
             , isopen: true  //加载完毕后的展开状态，默认值：true
             , ckall: true    //启用全选功能，默认值：false
             , ckallback: function () {

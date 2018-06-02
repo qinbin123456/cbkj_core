@@ -1,5 +1,6 @@
 package com.example.cbkj_core.controller;
 
+import com.example.cbkj_core.annotaionUtil.BtnAnnotaion;
 import com.example.cbkj_core.beans.AdminInfo;
 import com.example.cbkj_core.beans.ResEntity;
 import com.example.cbkj_core.common.Page;
@@ -23,6 +24,7 @@ public class SysAdminController {
 
 
     @RequestMapping("sys/admin")
+    @BtnAnnotaion(btn = true)
     public String toIndex(){
         return "admin/index";
     }

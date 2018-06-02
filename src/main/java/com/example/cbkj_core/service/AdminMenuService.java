@@ -131,7 +131,14 @@ public class AdminMenuService {
      * @return
      */
     public ResEntity update(AdminMenu adminMenu) {
-        return null;
+        if(null == adminMenu.getMid()){
+            return new ResEntity(false,"缺少参数，请稍后在提交",null);
+        }
+        long rows = adminMenuMapper.updateByPrimaryKey(adminMenu);
+        if(rows > 0){
+            return new ResEntity(true,"SUCCESS",rows);
+        }
+        return new ResEntity(false,"服务异常，请稍后重试",null);
     }
 
     /**
@@ -140,7 +147,12 @@ public class AdminMenuService {
      * @return
      */
     public ResEntity deleteLis(String ids) {
-        return null;
+        if(StringUtils.isBlank(ids)){
+            return new ResEntity(false,"缺少参数",null);
+        }
+        long rowsR = adminMenuMapper.deleteRMbyMid(ids.split(","));
+        long rowsA = adminMenuMapper.deleteBylis(ids.split(","));
+        return new ResEntity(true,"SUCCESS",rowsA);
     }
 
     /**
@@ -149,8 +161,18 @@ public class AdminMenuService {
      * @param enabled
      * @return
      */
-    public ResEntity updateEnableds(String id, String enabled) {
-        return null;
+    public ResEntity updateEnableds(String id, Integer enabled) {
+        if(StringUtils.isBlank(id) || null == enabled){
+            return new ResEntity(false,"缺少参数,请稍后重试",null);
+        }
+        Map<String,Object> params = new HashMap<>();
+        params.put("mid",id);
+        params.put("enabled",enabled);
+        long rows = adminMenuMapper.updateEnabled(params);
+        if(rows > 0){
+            return new ResEntity(true,"SUCCESS",rows);
+        }
+        return new ResEntity(false,"服务异常，请稍后重试",null);
     }
 
     /**
@@ -159,5 +181,12 @@ public class AdminMenuService {
      */
     public Object getAllMenuListM() {
         return adminMenuMapper.selectAllMenuByM();
+    }
+
+    public List<Map<String,Object>> getBtnMenuLisByPath(String path,String rid) {
+        Map<String,Object> params = new HashMap<>();
+        params.put("path",path.substring(1,path.length()));
+        params.put("rid",rid);
+        return adminMenuMapper.getBtnMenuLisByPath(params);
     }
 }

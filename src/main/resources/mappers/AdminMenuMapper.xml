@@ -128,4 +128,32 @@
       </if>
 
   </select>
+
+    <update id="updateEnabled" parameterType="Map">
+        update admin_menu set enabled = #{enabled} where mid = #{mid}
+
+    </update>
+
+    <delete id="deleteRMbyMid" parameterType="ArrayList">
+        delete from admin_rule_menu where mid in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <delete id="deleteBylis" parameterType="ArrayList">
+        delete from admin_menu where mid in
+        <foreach collection="array" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+
+    </delete>
+
+    <select id="getBtnMenuLisByPath" parameterType="Map" resultType="Map">
+       SELECT a.mname,a.path,a.iconCls,a.btn_class btnClass,a.btn_type btnType FROM admin_menu a
+       LEFT JOIN admin_menu b ON b.mid = a.parent_mid
+       left join admin_rule_menu c on c.mid = a.mid
+       WHERE a.enabled = 2 AND b.path=#{path} and a.menu_type =2 and c.rid=#{rid} and c.rmid is not null
+       ORDER  by a.mid ASC
+    </select>
 </mapper>

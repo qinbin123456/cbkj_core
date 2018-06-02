@@ -3,23 +3,29 @@ layui.use(['form', 'layedit', 'laydate'], function() {
     var id = $("input[name='mid']").val();
 
     if(null != id && id.trim() != "" && id != undefined && id != "null"){
-        var url = path_+"/menu/update/findObj";
-        // $.getJSON(url,{id:id},function(result){
-        //     var status = result.status;
-        //     if(status){
-        //         var data = result.data;
-        //         form.val('example', {
-        //             "name": data.name // "name": "value"
-        //             ,"phone": data.phone
-        //             ,"roleID": data.roles[0].rid
-        //             ,"sex":data.sex
-        //             ,"address": data.address
-        //             ,"email": data.email
-        //         })
-        //     }else {
-        //         parent.layer.msg(result.message);
-        //     }
-        // });
+        var url = path_+"menu/update/findObj";
+        $.getJSON(url,{id:id},function(result){
+            var status = result.status;
+            if(status){
+                var data = result.data;
+                var enabledS = (""+data.enabled);
+                var menuType = data.menuType;
+                form.val('example', {
+                    "mname": data.mname
+                    ,"url": data.url
+                    ,"path": data.path
+                    ,"iconCls":data.iconcls
+                    ,"parentId": data.parentMid
+                    ,"menuType": menuType
+                    ,"btnClass": data.btnClass
+                    ,"btnType": data.btnType
+                    ,"enabledS": enabledS
+                })
+
+            }else {
+                parent.layer.msg(result.message);
+            }
+        });
 
     }
     $(".iconCls").click(function(){
@@ -27,7 +33,7 @@ layui.use(['form', 'layedit', 'laydate'], function() {
 
         var ch_Index = parent.layer.open({
             type: 2,
-            content:[path_ +"/menu/iconP"],
+            content:[path_+"menu/iconP"],
             title:"选择图标",
             area:["880px","600px"],
             id:"CHINDEX",
@@ -43,7 +49,7 @@ layui.use(['form', 'layedit', 'laydate'], function() {
                 var body = parent.layer.getChildFrame('body', index);
                 var icon = $(body).find(".sel");
                 if(icon.length>0){
-                    var un = ("&#xe"+$(icon).attr("title")+";");
+                    var un = ("xe-"+$(icon).attr("title"));
                     $("input[name='iconCls']").val(un);
                     parent.layer.close(index);
                 }else{
@@ -61,7 +67,7 @@ layui.use(['form', 'layedit', 'laydate'], function() {
         if(menuType == 2){
             var ch_Index = parent.layer.open({
                 type: 2,
-                content:[path_ +"/menu/btnP"],
+                content:[path_+"menu/btnP"],
                 title:"选择按钮风格",
                 area:["540px","500px"],
                 id:"CHINDEX",

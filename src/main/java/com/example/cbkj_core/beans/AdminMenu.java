@@ -25,11 +25,21 @@ public class AdminMenu {
 
     private String cteateId;
 
+    private String enabledS;
+
     private String menuType;
     private String btnClass;
     private String btnType;
 
     private List<AdminRule> rules;
+
+    public String getEnabledS() {
+        return enabledS;
+    }
+
+    public void setEnabledS(String enabledS) {
+        this.enabledS = String.valueOf(enabled);
+    }
 
     public String getMenuType() {
         return menuType;

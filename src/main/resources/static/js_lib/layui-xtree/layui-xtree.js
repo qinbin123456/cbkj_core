@@ -159,9 +159,9 @@ layuiXtree.prototype.Rendering = function () {
 
     for (var i = 0; i < xtree_items.length; i++) {
         if (xtree_items[i].parentNode == _this._container)
-            xtree_items[i].style.margin = '5px 0 0 10px';
+            xtree_items[i].style.margin = '10px 0 0 10px';
         else {
-            xtree_items[i].style.margin = '5px 0 0 45px';
+            xtree_items[i].style.margin = '10px 0 0 45px';
             if (!_this._isopen) xtree_items[i].style.display = 'none';
         }
     }

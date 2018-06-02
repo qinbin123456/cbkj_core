@@ -17,10 +17,11 @@
     <div class="btns">
         <div class="lefts">
             <!--是否细粒度控制 细粒度控制放入数据库中动态加载出来-->
-            <div class="layui-btn layui-btn-normal" data-type="add_"><i class="layui-icon">&#xe654;</i> 添加</div>
-            <div class="layui-btn layui-btn-normal" data-type="update_"><i class="layui-icon">&#xe642;</i>修改</div>
-            <div class="layui-btn layui-btn-normal" data-type="updateQue_"><i class="iconfont_">&#xe908;</i>权限设置</div>
-            <div class="layui-btn layui-btn-normal" data-type="delete_"><i class="layui-icon"></i>删除</div>
+            <div th:each="btn,bStar : ${btnLis}" th:class="${btn.btnClass}" th:data-type="${btn.btnType}"  >
+                <i  th:class="|iconfont_ ${btn.iconCls}|" ></i>
+                <span th:text="${btn.mname}"></span>
+            </div>
+
        </div>
 
        <div class="seachTable">

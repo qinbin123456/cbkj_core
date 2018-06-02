@@ -23,4 +23,6 @@ public interface AdminRuleMapper {
     long getRuleRelesCount(String ids);
 
     long deleteRuleMenuByRid(String ids);
+
+    long deleteRuleMenuByRids(String ids);
 }

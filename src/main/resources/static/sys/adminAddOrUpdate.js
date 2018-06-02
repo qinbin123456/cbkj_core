@@ -3,7 +3,7 @@ layui.use(['form', 'layedit', 'laydate'], function() {
     var id = $("input[name='id']").val();
 
     if(null != id && id.trim() != "" && id != undefined && id != "null"){
-        var url = path_+"/admin/update/findObj";
+        var url = path_+"admin/update/findObj";
         $.getJSON(url,{id:id},function(result){
             var status = result.status;
             if(status){

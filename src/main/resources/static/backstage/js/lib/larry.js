@@ -230,8 +230,8 @@ layui.define(['jquery', 'layer', 'element', 'common'], function (exports) {
                         ulHtml += '<i class="larry-icon ' + data[i].icon + '" data-icon="' + data[i].icon + '" aria-hidden="true" ></i>';
                     } else if (data[i].icon.indexOf('icon-') !== -1) {
                         ulHtml += '<i class="iconfont' + data[i].icon + '" data-icon="' + data[i].icon + '" aria-hidden="true"></i>';
-                    } else if(data[i].icon.indexOf('&#xe') !== -1){//自定义图库QB
-                        ulHtml += '<i class="iconfont_" data-icon="' + data[i].icon + '" aria-hidden="true">'+data[i].icon+'</i>';
+                    } else if(data[i].icon.indexOf('xe-') !== -1){//自定义图库QB
+                        ulHtml += '<i class="iconfont_ '+data[i].icon + '" data-icon="'+data[i].icon+'" aria-hidden="true" ></i>';
                     } else {
                         ulHtml += '<i class="layui-icon" data-icon="' + data[i].icon + '">' + data[i].icon + '</i>';
                     }
@@ -246,8 +246,8 @@ layui.define(['jquery', 'layer', 'element', 'common'], function (exports) {
 
                         if (data[i].children[j].icon.indexOf('larry-') !== -1) {
                             ulHtml += '<i class="larry-icon ' + data[i].children[j].icon + '" data-icon="' + data[i].children[j].icon + '" aria-hidden="true" ></i>';
-                        } else if(data[i].children[j].icon.indexOf('&#xe') !== -1){//自定义图库QB
-                            ulHtml += '<i class="iconfont_" data-icon="' + data[i].children[j].icon + '" aria-hidden="true">'+data[i].children[j].icon+'</i>';
+                        } else if(data[i].children[j].icon.indexOf('xe-') !== -1){//自定义图库QB
+                            ulHtml += '<i class="iconfont_ ' + data[i].children[j].icon + '" data-icon="'+data[i].children[j].icon + '" aria-hidden="true" ></i>';
                         } else if (data[i].icon.indexOf('icon-') !== -1) {
                             ulHtml += '<i class="iconfont' + data[i].children[j].icon + '" data-icon="' + data[i].children[j].icon + '" aria-hidden="true"></i>';
                         } else {
@@ -268,8 +268,8 @@ layui.define(['jquery', 'layer', 'element', 'common'], function (exports) {
                         ulHtml += '<i class="larry-icon ' + data[i].icon + '" data-icon="' + data[i].icon + '" aria-hidden="true"></i>';
                     } else if (data[i].icon.indexOf('icon-') !== -1) {
                         ulHtml += '<i class="iconfont ' + data[i].icon + '" data-icon="' + data[i].icon + '" aria-hidden="true"></i>';
-                    } else if (data[i].icon.indexOf('&#xe') !== -1){//定义图库QB
-                        ulHtml += '<i class="iconfont_" data-icon="' + data[i].icon + '" aria-hidden="true">'+data[i].icon+'</i>';
+                    } else if (data[i].icon.indexOf('xe-') !== -1){//定义图库QB
+                        ulHtml += '<i class="iconfont_ ' + data[i].icon + '" data-icon="'+data[i].icon+'" aria-hidden="true"></i>';
                     } else {
                         ulHtml += '<i class="layui-icon" data-icon="' + data[i].icon + '">' + data[i].icon + '</i>';
                     }

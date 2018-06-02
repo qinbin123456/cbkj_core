@@ -1,23 +1,33 @@
 package com.example.cbkj_core.aopConfig;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.cbkj_core.annotaionUtil.BtnAnnotaion;
 import com.example.cbkj_core.beans.LogEntity;
 import com.example.cbkj_core.beans.ResEntity;
 import com.example.cbkj_core.annotaionUtil.LogAnnotaion;
 import com.example.cbkj_core.annotaionUtil.TokenAnnotaion;
+import com.example.cbkj_core.common.AdminUtils;
+import com.example.cbkj_core.service.AdminMenuService;
+import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.util.List;
+import java.util.Map;
 
 
 @Aspect
 @Component
-public class LogAopConfig {
+public class AnnotaionConfig {
+
+    @Autowired
+    private AdminMenuService adminMenuService;
 
     @Pointcut("execution(public * com.example.cbkj_core.controller.*.*(..))")
     public void web(){}
@@ -32,14 +42,27 @@ public class LogAopConfig {
 
             String descpt = null;
             String methodName =  joinPoint.getSignature().getName();
-
             Object obj  = method.getAnnotation(TokenAnnotaion.class);
             Object logObj  = method.getAnnotation(LogAnnotaion.class);
+            Object btnObj  = method.getAnnotation(BtnAnnotaion.class);
             boolean showLog = false;
             boolean status = false;
             if(null != logObj){
                 showLog = true;
                 descpt = ((LogAnnotaion) logObj).description();
+            }
+            if(null != btnObj){
+                if(((BtnAnnotaion)btnObj).btn()){
+                    String uri = request.getRequestURI();
+                    String path = uri.replace(request.getContextPath(), "");
+                    if(!StringUtils.isBlank(path)){
+
+                        String rid = AdminUtils.getCurrentHr().getRoles().get(0).getRid();
+                        List<Map<String,Object>> lisM = adminMenuService.getBtnMenuLisByPath(path,rid );
+                        request.setAttribute("btnLis",lisM);
+                    }
+
+                }
             }
             if(null != obj){
                 if(((TokenAnnotaion)obj).submitP() && null != reo){

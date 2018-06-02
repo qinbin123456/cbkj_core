@@ -7,13 +7,7 @@ layui.use('table', function(){
     tableIns = table.render({
         elem: '#qb'
         ,url:'rule/getPages'
-        ,page: { //
-            layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
-            ,curr: 1
-            ,groups: 1 //只显示 1 个连续页码
-            ,first: false //不显示首页
-            ,last: false //不显示尾页
-        }
+        ,page: page_
         ,cols: [[//破除
             {checkbox: true}
             ,{field:'rname_zh',width:180, title: '中文名'}
@@ -198,7 +192,7 @@ function authority(ids){
         type: 2,
         content:[url],
         title:"权限设置",
-        area:["470px","500px"],
+        area:["580px","600px"],
         id:"QB_UPDATE",
         shade:0.7,
         scrollbar: false,

@@ -45,6 +45,7 @@ function loginF(){
     $(".msg").html("");
     $.post("login", param, function (result) {
         if(result.status != "success"){
+            $("input[name='password']").val("");
             $(".msg").html(result.msg);
         }else{
             window.location.href="toMain";

@@ -125,4 +125,9 @@
     delete from admin_info_rule
     where rid = #{ids}
   </delete>
+
+  <delete id="deleteRuleMenuByRids" parameterType="java.lang.String">
+    delete from admin_rule_menu where rid = #{ids}
+
+  </delete>
 </mapper>
