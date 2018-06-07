@@ -8,9 +8,9 @@ layui.use('upload', function() {
         , url: '../upload/post2'
         , before: function (obj) {
             //预读本地文件示例，不支持ie8
-            obj.preview(function (index, file, result) {
-                $('#demo1').attr('src', result); //图片链接（base64）
-            });
+            // obj.preview(function (index, file, result) {
+            //     $('#demo1').attr('src', result); //图片链接（base64）
+            // });
         }
         , done: function (res) {
             if(res.status){
@@ -19,15 +19,19 @@ layui.use('upload', function() {
             }else{
                 parent.layer.msg("上传失败")
             }
-            //上传成功
         }
         , error: function () {
-            //演示失败状态，并实现重传
-            var demoText = $('#demoText');
-            demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-            demoText.find('.demo-reload').on('click', function () {
-                uploadInst.upload();
-            });
+           parent.layer.msg("上传失败");
         }
+    });
+    /**
+     * 动态添加一个tab 案例
+     */
+    $("#addTabTest").click(function(){
+          var data = {};
+          data.title = "测试添加";
+          data.href = "http://www.baidu.com";
+          data.icon = "xe-642";
+          parent.navtab.tabAdd(data);
     });
 })
