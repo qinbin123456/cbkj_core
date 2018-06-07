@@ -1,7 +1,7 @@
 layui.use(['form', 'layedit', 'laydate'], function() {
     var form = layui.form
     var id = $("input[name='mid']").val();
-
+    form.render();
     if(null != id && id.trim() != "" && id != undefined && id != "null"){
         var url = path_+"menu/update/findObj";
         $.getJSON(url,{id:id},function(result){
@@ -99,4 +99,5 @@ layui.use(['form', 'layedit', 'laydate'], function() {
             parent.layer.msg("按钮风格只针对菜单类型为按钮哦");
         }
     });
+
 })

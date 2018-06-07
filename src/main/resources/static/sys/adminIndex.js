@@ -1,7 +1,8 @@
-var table,lodingIndex,tableIns;
+var table,lodingIndex,tableIns,form;
 
-layui.use('table', function(){
+layui.use(['table','form'], function(){
     table = layui.table;
+    form = layui.form;
     //加载图标
     lodingIndex = layer.load(2, {time: 10*1000});
     tableIns = table.render({

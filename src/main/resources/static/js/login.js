@@ -1,5 +1,24 @@
 var isPwd = true;
-$(function () {
+layui.use(['layer', 'form'], function() {
+
+    var layer = layui.layer,form = layui.form;
+    document.onkeydown=function(event){
+        var e = event || window.event || arguments.callee.caller.arguments[0];
+
+        if(e && e.key == "Enter"){ // enter 键
+            loginF();
+        }
+    };
+    $(".layui-btn").click(function() {
+
+        loginF();
+
+    });
+    form.render();
+
+});
+
+$(function() {
     var name = $.cookie("name_");
     var pwd = $.cookie("pwd_");
     //cookie 获取登录信息填入
@@ -53,20 +72,3 @@ function loginF(){
     }, "json");
 }
 
-layui.use(['layer', 'form'], function () {
-
-    var layer = layui.layer,$ = layui.jquery,form = layui.form;
-    document.onkeydown=function(event){
-        var e = event || window.event || arguments.callee.caller.arguments[0];
-
-        if(e && e.key == "Enter"){ // enter 键
-            loginF();
-        }
-    };
-    $(".layui-btn").click(function () {
-
-        loginF();
-
-    });
-
-});

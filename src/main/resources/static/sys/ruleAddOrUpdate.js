@@ -2,7 +2,7 @@ layui.use(['form', 'layedit', 'laydate'], function() {
 
     var form = layui.form;
     var id = $("input[name='rid']").val();
-
+    form.render();
     if(null != id && id.trim() != "" && id != undefined && id != "null"){
         $.getJSON(path_+"rule/update/findObj",{id:id},function(result){
             var status = result.status;

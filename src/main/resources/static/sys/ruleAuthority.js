@@ -2,6 +2,7 @@ var xthree;
 layui.use(['form'], function () {
     var form = layui.form;
     var id = $("input[name='rid']").val();
+    form.render();
     if(null != id && id.trim() != "" && id != undefined && id != "null"){
        xthree = new layuiXtree({
             elem: 'xtree3'                  //必填三兄弟之老大
