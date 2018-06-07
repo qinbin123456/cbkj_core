@@ -323,7 +323,7 @@ layui.define(['jquery','elements','layer','common'],function(exports){
 			    break;
 			case 'refreshAdmin': //刷新最外层框架
 			    layer.confirm('您确定真的要重新加载后台系统界面！', {
-			    	title: 'LarryCMS友情提示',
+			    	title: '友情提示',
 			    	time: 0,
                     resize: false,
 			    	btn: ['我很确定', '不,我点错了'],
@@ -351,7 +351,7 @@ layui.define(['jquery','elements','layer','common'],function(exports){
 		var _config = that.config;
         this.init();
 		if (typeof(events) !== 'string') {
-			common.cmsError('LarryCMS Nav error:事件名配置出错，请参考API文档.', '事件名配置出错')
+			common.cmsError('error:事件名配置出错，请参考API文档.', '事件名配置出错')
 		}
 		var lIndex = events.indexOf('(');
 		var eventName = events.substr(0, lIndex);
@@ -361,10 +361,10 @@ layui.define(['jquery','elements','layer','common'],function(exports){
 		 		
                 
 		    }else{
-		    	common.cmsInfo('LarryCMS Nav error:当前传入的lay-filter是'+filter+';而非larryOperate', '常用操作不匹配');
+		    	common.cmsInfo('error:当前传入的lay-filter是'+filter+';而非larryOperate', '常用操作不匹配');
 		    }
 		}else{
-		 	common.cmsInfo('LarryCMS Nav error:当前传入的事件名是'+eventName+';非点击事件，其他功能稍后续！', '事件名不匹配提示');
+		 	common.cmsInfo('error:当前传入的事件名是'+eventName+';非点击事件，其他功能稍后续！', '事件名不匹配提示');
 		}
     };
 

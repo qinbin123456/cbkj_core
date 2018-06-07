@@ -48,7 +48,6 @@ public class AnnotaionConfig {
             boolean showLog = false;
             boolean status = false;
             if(null != logObj){
-                showLog = true;
                 descpt = ((LogAnnotaion) logObj).description();
             }
             if(null != btnObj){
@@ -66,7 +65,6 @@ public class AnnotaionConfig {
             }
             if(null != obj){
                 if(((TokenAnnotaion)obj).submitP() && null != reo){
-                    showLog = true;
                     ResEntity entity = (ResEntity) reo;
                     if(!entity.getStatus()){
                         String token = request.getSession(true).getAttribute("tempToken").toString();
@@ -77,6 +75,7 @@ public class AnnotaionConfig {
             }
             if(null != reo){
                 if(reo instanceof  ResEntity){
+                    showLog = true;
                     ResEntity entity = (ResEntity) reo;
                     status = entity.getStatus();
                 }

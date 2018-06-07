@@ -4,6 +4,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.PutObjectResult;
 import com.example.cbkj_core.beans.ResEntity;
 import com.example.cbkj_core.common.DateUtil;
+import com.example.cbkj_core.common.OSSUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ResourceLoader;
@@ -34,37 +35,21 @@ public class UploadController {
     }
 
     /**
-     * 上传到阿里云OSS 简单测试
+     * 上传到阿里云OSS
      * @param file
      * @return
      */
     @RequestMapping(value = "upload/post2", method = RequestMethod.POST)
     @ResponseBody
     public Object fileUpload(MultipartFile file){
-        String endpoint = "http://oss-cn-beijing.aliyuncs.com";
-        // 云账号AccessKey有所有API访问权限，建议遵循阿里云安全最佳实践，创建并使用RAM子账号进行API访问或日常运维，请登录 https://ram.console.aliyun.com 创建。
-        String accessKeyId = "LTAIinqNaC5ZG4bF";
-        String accessKeySecret = "NnfFpIO9sHqBuWJUmp8qbesyDAPXpN";
-        String bucketName = "bucket-v1";
-        // 创建OSSClient实例。
-        OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-        // 上传文件流。
-        InputStream inputStream = null;
+        Object obj = null;
         try {
-            inputStream = file.getInputStream();
-        } catch (IOException e) {
+            obj = OSSUtil.uploadFile(file,"cbkj");
+            return new ResEntity(true,"SUCCESS",obj);
+        } catch (Exception e) {
             e.printStackTrace();
+            return new ResEntity(false,"上传服务异常",e.getMessage());
         }
-        String key = UUID.randomUUID().toString();
-        String fileName = file.getOriginalFilename();
-        String suffix = fileName.substring(fileName.lastIndexOf("."));
-        String filename = String.format("%s%s",key ,suffix);
-        PutObjectResult result =  ossClient.putObject(bucketName,filename , inputStream);
-        Date expiration = new Date(System.currentTimeMillis() + 3600L * 1000 * 24 * 365 * 10);
-        // 生成URL
-        URL url = ossClient.generatePresignedUrl(bucketName, filename, expiration);
-        ossClient.shutdown();
-        return new ResEntity(true,"SUCCESS",url.toString());
     }
 
     /**
