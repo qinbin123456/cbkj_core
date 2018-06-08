@@ -58,11 +58,10 @@ public class AnnotaionConfig {
                 TokenAnnotaion tokenAnnotaion = ((TokenAnnotaion)tokenObj);
                 if(tokenAnnotaion.submitP() && null != reo){
                     ResEntity entity = (ResEntity) reo;
+                    String token = request.getParameter("token");
                     if(!entity.getStatus()){
-                        String token = request.getSession(true).getAttribute("tempToken").toString();
-                        request.getSession(true).setAttribute("token",token);
+                        request.getSession(true).setAttribute(token,token);
                     }
-                    request.getSession(true).removeAttribute("tempToken");
                 }
             }
 

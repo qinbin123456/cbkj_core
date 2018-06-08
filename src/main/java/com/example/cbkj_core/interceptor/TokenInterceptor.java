@@ -27,9 +27,9 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             if (annotation != null) {
                 boolean needSaveSession = annotation.toP();
                 if (needSaveSession) {
-//                    String token = IDUtil.getID();
-//                    request.setAttribute("token",token);
-                    request.getSession(true).setAttribute("token",IDUtil.getID());
+                    String token = IDUtil.getID();
+                    request.setAttribute("token",token);
+                    request.getSession(true).setAttribute(token,token);
                 }
                 boolean needRemoveSession = annotation.submitP();
 
@@ -39,16 +39,15 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
                         PrintWriter out = response.getWriter();
                         StringBuffer sb = new StringBuffer();
                         sb.append("{\"status\":false,\"message\":\"");
-                        sb.append("请不要重复点击！！");
+                        sb.append("请不要重复操作！！");
                         sb.append("\"}");
                         out.write(sb.toString());
                         out.flush();
                         out.close();
                         return false;
                     }else{
-                        String token = request.getSession(true).getAttribute("token").toString();
-                        request.getSession(true).removeAttribute("token");
-                        request.getSession(true).setAttribute("tempToken",token);
+                        String token = request.getParameter("token");
+                        request.getSession(true).removeAttribute(token);
                     }
                 }
             }
@@ -64,11 +63,11 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
     }
 
     private boolean isRepeatSubmit(HttpServletRequest request) {
-        String serverToken = (String) request.getSession(true).getAttribute("token");
+        String clinetToken = request.getParameter("token");
+        String serverToken = (String) request.getSession(true).getAttribute(clinetToken);
         if (serverToken == null) {
             return true;
         }
-        String clinetToken = request.getParameter("token");
         if (clinetToken == null) {
             return true;
         }
