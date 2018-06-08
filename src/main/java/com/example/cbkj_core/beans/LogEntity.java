@@ -1,6 +1,7 @@
 package com.example.cbkj_core.beans;
 
 public class LogEntity {
+
     public String url;
     public String httpMethod;
     public String ip;
@@ -9,12 +10,14 @@ public class LogEntity {
     public String execuType;
     public String status;
     public String descr;
+    public String errMsg;
+
 
     public LogEntity(){
 
     }
 
-    public LogEntity(String url,String httpMethod,String ip,String className,String methodName,String execuType,String status,String descr){
+    public LogEntity(String url,String httpMethod,String ip,String className,String methodName,String execuType,String status,String descr,String errMsg){
         this.url = url;
         this.httpMethod = httpMethod;
         this.ip = ip;
@@ -23,6 +26,15 @@ public class LogEntity {
         this.execuType = execuType;
         this.status = status;
         this.descr = descr;
+        this.errMsg = errMsg;
+    }
+
+    public String getErrMsg() {
+        return errMsg;
+    }
+
+    public void setErrMsg(String errMsg) {
+        this.errMsg = errMsg;
     }
 
     public String getDescr() {

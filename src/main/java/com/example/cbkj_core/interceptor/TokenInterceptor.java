@@ -27,6 +27,8 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             if (annotation != null) {
                 boolean needSaveSession = annotation.toP();
                 if (needSaveSession) {
+//                    String token = IDUtil.getID();
+//                    request.setAttribute("token",token);
                     request.getSession(true).setAttribute("token",IDUtil.getID());
                 }
                 boolean needRemoveSession = annotation.submitP();

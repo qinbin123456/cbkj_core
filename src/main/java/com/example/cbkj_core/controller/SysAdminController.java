@@ -108,7 +108,6 @@ public class SysAdminController {
         try {
             result = adminService.deleteLis(ids);
         } catch (Exception e) {
-            e.printStackTrace();
             result = new ResEntity(false,"服务异常,请稍后重试",null);
         }
         return result;

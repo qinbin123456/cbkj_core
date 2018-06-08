@@ -63,19 +63,15 @@ public class SysAdminRuleController{
     }
 
     @RequestMapping("rule/insert")
-    @LogAnnotaion(description = "新增角色")
-    @TokenAnnotaion(submitP = true)
+    @TokenAnnotaion(submitP = true,description = "新增角色")
     @ResponseBody
     public Object insert(AdminRule adminRule) {
         ResEntity result = adminRuleService.insert(adminRule);
         return result;
     }
 
-
-
     @RequestMapping("rule/update")
-    @LogAnnotaion(description = "修改角色")
-    @TokenAnnotaion(submitP = true)
+    @TokenAnnotaion(submitP = true,description = "修改角色")
     @ResponseBody
     public Object update(AdminRule adminRule) {
         ResEntity result = adminRuleService.update(adminRule);

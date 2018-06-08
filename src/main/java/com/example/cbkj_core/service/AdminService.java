@@ -49,6 +49,7 @@ public class AdminService implements UserDetailsService {
         PageHelper.startPage(page.getPage(), page.getLimit());
         List<Map<String,Object>> lis = adminInfoMapper.getPageDatas(admin);
         Object result = Page.getLayUiTablePageData(lis);
+
         return result;
     }
 
@@ -91,9 +92,11 @@ public class AdminService implements UserDetailsService {
     public ResEntity update(AdminInfo adminInfo) {
 
         long rows = adminInfoMapper.updateByPrimaryKey(adminInfo);
+
         if(rows >0){
             return new ResEntity(true,"SUCCESS",null);
         }
+
         return new ResEntity(false,"用户名不能重复哦",null);
     }
 
@@ -163,6 +166,7 @@ public class AdminService implements UserDetailsService {
         if(rowsR >0){
             rowsA = adminInfoMapper.deleteBylis(ids.split(","));
         }
+
         if(rowsA == rowsR){
             return new ResEntity(true,"SUCCESS",rowsA);
         }else{
