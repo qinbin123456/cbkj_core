@@ -18,9 +18,25 @@ Date.prototype.Format = function (fmt) { //author: meizz
 
 function dateFormatter(v){
     if(v != null && v != ''){
-        // alert(v);
-        return new Date(v).Format("yyyy-MM-dd HH:mm:ss");
+
+        return newDate(v).Format("yyyy-MM-dd HH:mm:ss");
     }else{
         return "暂无";
     }
+}
+
+function newDate(str) {
+    //首先将日期分隔 ，获取到日期部分 和 时间部分
+    var day = str.split(' ');
+    //获取日期部分的年月日
+    var days = day[0].split('-');
+    //获取时间部分的 时分秒
+    var mi = day[day.length - 1].split(':');
+    //获取当前date类型日期
+    var date = new Date();
+    //给date赋值  年月日
+    date.setUTCFullYear(days[0], days[1] - 1, days[2]);
+    //给date赋值 时分秒  首先转换utc时区 ：+8
+    date.setUTCHours(mi[0] - 8, mi[1], mi[2]);
+    return date;
 }

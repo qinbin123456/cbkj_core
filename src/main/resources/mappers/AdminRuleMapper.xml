@@ -109,7 +109,7 @@
   </update>
 
   <select id="getPageDatas" parameterType="AdminRule" resultType="Map">
-     select r.rid, r.rname, r.rdescr, r.create_date, r.admin_id, r.rname_zh,r.index_url
+     select r.rid, r.rname, r.rdescr, DATE_FORMAT(r.create_date,'%Y-%m-%d %h:%i:%s') create_date, r.admin_id, r.rname_zh,r.index_url
      ,a.name createName
      from admin_rule r,admin_info a where a.id = r.admin_id
      <if test="rname != null and rname.length()>0">

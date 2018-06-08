@@ -35,11 +35,7 @@ layui.use(['table','form'], function(){
             }
             ,{field:'rnamess', width:200, title: '角色' }
             ,{field:'createName', width:150, title: '创建者', sort: true}
-            ,{field:'create_date', title: '创建时间',align:'center', templet:
-                    function(d){
-                        return dateFormatter(d.create_date);
-                    }
-            }
+            ,{field:'create_date', title: '创建时间',align:'center'}
 
         ]]
         ,id:"adminTable"

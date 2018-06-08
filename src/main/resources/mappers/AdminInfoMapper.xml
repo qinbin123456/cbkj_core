@@ -218,7 +218,7 @@
   </select>
 
   <select id="getPageDatas" parameterType="AdminInfo" resultType="Map">
-    SELECT a.id,a.name,a.password,a.sex,a.status,a.create_date,a.create_id,a.update_date,a.last_ip
+    SELECT a.id,a.name,a.password,a.sex,a.status,DATE_FORMAT(a.create_date,'%Y-%m-%d %h:%i:%s') create_date,a.create_id,a.update_date,a.last_ip
     ,a.phone,a.address,a.name_zh as nameZh,a.user_heand,a.email
     ,r.rname_zh rnamess,c.name createName FROM `admin_info` a
     ,admin_info_rule ar,admin_rule r,admin_info c  WHERE c.id = a.create_id AND a.id=ar.admin_id AND ar.rid = r.rid

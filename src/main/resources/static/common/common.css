@@ -1,3 +1,4 @@
+*{padding:0px;margin:0px;}
 body{
     margin:0px;
     padding:0px;
@@ -9,3 +10,4 @@ body{
     color: #fff;
 }
 .layui-form-checkbox[lay-skin=primary]:hover i{border-color:#3C8DBC;color:#fff}
+.layui-layer-hui{min-width:100px;background-color:#000;filter:alpha(opacity=80);background-color:rgba(0,0,0,.8);}

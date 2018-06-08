@@ -15,11 +15,7 @@ layui.use('table', function(){
             ,{field:'index_url',width:200,title: '首页地址'}
             ,{field:'rdescr',width:200,title: '描述'}
             ,{field:'createName', width:150,align:'center', title: '创建者', sort: true}
-            ,{field:'create_date', title: '创建时间',align:'center', templet:
-                    function(d){
-                        return dateFormatter(d.create_date);
-                    }
-            }
+            ,{field:'create_date', title: '创建时间',align:'center'}
         ]]
         ,id:"qbTable"
         ,done: function(res, curr, count){

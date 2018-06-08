@@ -118,7 +118,7 @@
   </insert>
 
   <select id="getPageDatas" parameterType="AdminMenu" resultType="Map">
-       SELECT  m.mid, m.mname, m.url, m.path, m.iconCls, m.enabled, m.parent_mid, m.create_date, m.cteate_id,
+       SELECT  m.mid, m.mname, m.url, m.path, m.iconCls, m.enabled, m.parent_mid, DATE_FORMAT(m.create_date,'%Y-%m-%d %h:%i:%s') create_date, m.cteate_id,
       m.menu_type,m.btn_class,m.btn_type,a.name AS createName,b.mname parentName FROM admin_menu m
       LEFT JOIN admin_info a ON m.cteate_id = a.id
       LEFT JOIN admin_menu b ON b.mid = m.parent_mid

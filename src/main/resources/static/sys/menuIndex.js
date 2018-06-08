@@ -43,11 +43,7 @@ layui.use('table', function(){
             }
             ,{field:'parentName', width:150,align:'center', title: '上级菜单', sort: true}
             ,{field:'createName', width:100,align:'center', title: '创建者', sort: true}
-            ,{field:'create_date', title: '创建时间',align:'center', templet:
-                    function(d){
-                        return dateFormatter(d.create_date);
-                    }
-            }
+            ,{field:'create_date', title: '创建时间',align:'center'}
 
         ]]
         ,id:"qbTable"
