@@ -15,7 +15,7 @@ var page_ = {
  * @type {{elem: string, page: {layout: string[], curr: number, groups: number, first: boolean, last: boolean}, id: string, done: table_.done, height: string}}
  * @private
  */
-var commonTable = {
+var commonTable_ = {
      elem: '#qb'
     ,page: page_
     ,id:"qbTable"
