@@ -33,11 +33,7 @@ public class InitController {
         model.addAttribute("indexUrl",adminInfo.getRoles().get(0).getIndexUrl());
         return "main";
     }
-    /**
-     * 登录成功加载菜单
-     * @param parent_id
-     * @return
-     */
+
     @RequestMapping("public/getTopMenu")
     @ResponseBody
     public Object getMenuTop(Integer parent_id){

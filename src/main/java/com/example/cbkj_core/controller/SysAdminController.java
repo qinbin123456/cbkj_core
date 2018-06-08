@@ -103,13 +103,8 @@ public class SysAdminController {
     @RequestMapping(value="admin/deleteLis")
     @LogAnnotaion(description = "删除管理员")
     @ResponseBody
-    public Object deleteLis(String ids){
-        ResEntity result  = null;
-        try {
-            result = adminService.deleteLis(ids);
-        } catch (Exception e) {
-            result = new ResEntity(false,"服务异常,请稍后重试",null);
-        }
+    public Object deleteLis(String ids) throws Exception {
+        ResEntity result   = adminService.deleteLis(ids);
         return result;
     }
 

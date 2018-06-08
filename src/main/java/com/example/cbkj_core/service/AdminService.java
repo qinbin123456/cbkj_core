@@ -166,7 +166,6 @@ public class AdminService implements UserDetailsService {
         if(rowsR >0){
             rowsA = adminInfoMapper.deleteBylis(ids.split(","));
         }
-
         if(rowsA == rowsR){
             return new ResEntity(true,"SUCCESS",rowsA);
         }else{

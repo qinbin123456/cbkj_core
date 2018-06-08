@@ -87,13 +87,8 @@ public class SysMenuController {
     @RequestMapping(value="menu/deleteLis")
     @LogAnnotaion(description = "删除菜单")
     @ResponseBody
-    public Object deleteLis(String ids){
-        ResEntity result  = null;
-        try {
-            result = adminMenuService.deleteLis(ids);
-        } catch (Exception e) {
-            result = new ResEntity(false,"服务异常",null);
-        }
+    public Object deleteLis(String ids) throws Exception {
+        ResEntity result   = adminMenuService.deleteLis(ids);
         return result;
     }
 

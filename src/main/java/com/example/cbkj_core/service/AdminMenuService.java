@@ -146,7 +146,7 @@ public class AdminMenuService {
      * @param ids
      * @return
      */
-    public ResEntity deleteLis(String ids) {
+    public ResEntity deleteLis(String ids) throws Exception{
         if(StringUtils.isBlank(ids)){
             return new ResEntity(false,"缺少参数",null);
         }

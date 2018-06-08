@@ -36,7 +36,6 @@ public class SysAdminRuleController{
     @RequestMapping("rule/insert/toPage")
     @TokenAnnotaion(toP = true)
     public String insertP(){
-
         return "rule/addOrUpdateP";
     }
 
@@ -81,27 +80,17 @@ public class SysAdminRuleController{
     @RequestMapping(value="rule/deleteLis")
     @LogAnnotaion(description = "删除角色")
     @ResponseBody
-    public Object deleteLis(String ids){
-        ResEntity result  = null;
-        try {
-            result = adminRuleService.deleteLis(ids);
-        } catch (Exception e) {
-            result = new ResEntity(false,"服务异常",null);
-        }
+    public Object deleteLis(String ids) throws Exception {
+        ResEntity result = adminRuleService.deleteLis(ids);
+
         return result;
     }
 
     @RequestMapping("rule/authority/findMenu")
+    @LogAnnotaion(description = "加载角色菜单")
     @ResponseBody
-    public Object findMenu(String id){
-        ResEntity result = null;
-        try {
-            result = adminRuleService.findMenu(id);
-            Object obj = result.getData();
-            return obj;
-        } catch (Exception e) {
-            result = new ResEntity(false,"加载角色菜单异常",null);
-        }
+    public Object findMenu(String id) throws Exception {
+        ResEntity result = adminRuleService.findMenu(id);
         return result;
     }
 
@@ -109,15 +98,8 @@ public class SysAdminRuleController{
     @ResponseBody
     @LogAnnotaion(description = "权限设置")
     @TokenAnnotaion(submitP = true)
-    public Object authority(String mids,String rid){
-        ResEntity result = null;
-        try {
-            result = adminRuleService.insertauthority(mids,rid);
-            return result;
-        } catch (Exception e) {
-            e.printStackTrace();
-            result = new ResEntity(false,"服务异常，请稍后重试",null);
-        }
+    public Object authority(String mids,String rid) throws Exception {
+        ResEntity result = adminRuleService.insertauthority(mids,rid);
         return result;
     }
 }
