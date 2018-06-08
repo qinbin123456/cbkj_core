@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.cbkj_core.mapper.SRuleTypeMapper">
+  <resultMap id="BaseResultMap" type="com.example.cbkj_core.beans.SRuleType">
+    <id column="rtype_id" jdbcType="VARCHAR" property="rtypeId" />
+    <result column="rtname" jdbcType="VARCHAR" property="rtname" />
+    <result column="rfunction" jdbcType="VARCHAR" property="rfunction" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rtype_id, rtname, rfunction
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_rule_type
+    where rtype_id = #{rtypeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from s_rule_type
+    where rtype_id = #{rtypeId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.example.cbkj_core.beans.SRuleType">
+    insert into s_rule_type (rtype_id, rtname, rfunction
+      )
+    values (#{rtypeId,jdbcType=VARCHAR}, #{rtname,jdbcType=VARCHAR}, #{rfunction,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.cbkj_core.beans.SRuleType">
+    insert into s_rule_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rtypeId != null">
+        rtype_id,
+      </if>
+      <if test="rtname != null">
+        rtname,
+      </if>
+      <if test="rfunction != null">
+        rfunction,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rtypeId != null">
+        #{rtypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="rtname != null">
+        #{rtname,jdbcType=VARCHAR},
+      </if>
+      <if test="rfunction != null">
+        #{rfunction,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.cbkj_core.beans.SRuleType">
+    update s_rule_type
+    <set>
+      <if test="rtname != null">
+        rtname = #{rtname,jdbcType=VARCHAR},
+      </if>
+      <if test="rfunction != null">
+        rfunction = #{rfunction,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where rtype_id = #{rtypeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.cbkj_core.beans.SRuleType">
+    update s_rule_type
+    set rtname = #{rtname,jdbcType=VARCHAR},
+      rfunction = #{rfunction,jdbcType=VARCHAR}
+    where rtype_id = #{rtypeId,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getPageDatas" resultType="Map" parameterType="com.example.cbkj_core.beans.SRuleType">
+       select  <include refid="Base_Column_List" />
+       from s_rule_type
+       where 1=1
+      <if test="rtname != null">
+          and rtname like CONCAT('%',#{rtname},'%')
+      </if>
+  </select>
+
+
+</mapper>

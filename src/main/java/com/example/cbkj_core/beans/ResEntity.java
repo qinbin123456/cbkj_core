@@ -18,10 +18,15 @@ public class ResEntity {
           this.Data = data;
     }
 
+
     public ResEntity(boolean status,String message,Object data){
         this.status = status;
         this.message = message;
         this.Data = data;
+    }
+
+    public static ResEntity entity(boolean status,String message,Object data){
+         return new  ResEntity(status,message,data);
     }
 
     public boolean getStatus() {
