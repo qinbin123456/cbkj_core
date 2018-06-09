@@ -1,7 +1,10 @@
 package com.example.cbkj_core.beans;
 
+import java.util.Date;
+
 public class LogEntity {
 
+    public String lid;
     public String url;
     public String httpMethod;
     public String ip;
@@ -11,12 +14,12 @@ public class LogEntity {
     public String status;
     public String descr;
     public String errMsg;
-
+    public Date create_date;
+    public String create_id;
 
     public LogEntity(){
 
     }
-
     public LogEntity(String url,String httpMethod,String ip,String className,String methodName,String execuType,String status,String descr,String errMsg){
         this.url = url;
         this.httpMethod = httpMethod;
@@ -27,6 +30,30 @@ public class LogEntity {
         this.status = status;
         this.descr = descr;
         this.errMsg = errMsg;
+    }
+
+    public String getCreate_id() {
+        return create_id;
+    }
+
+    public void setCreate_id(String create_id) {
+        this.create_id = create_id;
+    }
+
+    public Date getCreate_date() {
+        return create_date;
+    }
+
+    public void setCreate_date(Date create_date) {
+        this.create_date = create_date;
+    }
+
+    public String getLid() {
+        return lid;
+    }
+
+    public void setLid(String lid) {
+        this.lid = lid;
     }
 
     public String getErrMsg() {

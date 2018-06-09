@@ -30,6 +30,7 @@ public class AnnotaionConfig {
     private AdminMenuService adminMenuService;
 
 
+
     @Pointcut("execution(public * com.example.cbkj_core.controller.*.*(..))")
     public void web(){}
 
