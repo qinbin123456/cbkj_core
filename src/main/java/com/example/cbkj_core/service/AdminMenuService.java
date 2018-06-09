@@ -169,10 +169,7 @@ public class AdminMenuService {
         params.put("mid",id);
         params.put("enabled",enabled);
         long rows = adminMenuMapper.updateEnabled(params);
-        if(rows > 0){
-            return new ResEntity(true,"SUCCESS",rows);
-        }
-        return new ResEntity(false,"服务异常，请稍后重试",null);
+        return new ResEntity(true,"SUCCESS",rows);
     }
 
     /**

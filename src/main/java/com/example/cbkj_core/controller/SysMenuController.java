@@ -39,6 +39,14 @@ public class SysMenuController {
         return "menu/addOrUpdateP";
     }
 
+    @RequestMapping("menu/update/toPage")
+    @TokenAnnotaion(toP = true)
+    public String updateP(Model model, String ID){
+        model.addAttribute("menulis",adminMenuService.getAllMenuListM());
+        model.addAttribute("mid",ID);
+        return "menu/addOrUpdateP";
+    }
+
     @RequestMapping("menu/iconP")
     public String iconP(){
         return "menu/iconP";
@@ -47,14 +55,6 @@ public class SysMenuController {
     @RequestMapping("menu/btnP")
     public String btnP(){
         return "menu/btnP";
-    }
-
-    @RequestMapping("menu/update/toPage")
-    @TokenAnnotaion(toP = true)
-    public String updateP(Model model, String ID){
-        model.addAttribute("menulis",adminMenuService.getAllMenuListM());
-        model.addAttribute("mid",ID);
-        return "menu/addOrUpdateP";
     }
 
     @RequestMapping("menu/update/findObj")
@@ -72,8 +72,6 @@ public class SysMenuController {
         ResEntity result = adminMenuService.insert(adminMenu);
         return result;
     }
-
-
 
     @RequestMapping("menu/update")
     @LogAnnotaion(description = "修改菜单")

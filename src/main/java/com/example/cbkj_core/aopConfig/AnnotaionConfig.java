@@ -8,6 +8,7 @@ import com.example.cbkj_core.annotaionUtil.LogAnnotaion;
 import com.example.cbkj_core.annotaionUtil.TokenAnnotaion;
 import com.example.cbkj_core.common.AdminUtils;
 import com.example.cbkj_core.service.AdminMenuService;
+import com.example.cbkj_core.service.LogEntityService;
 import org.apache.commons.lang.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -28,8 +29,8 @@ public class AnnotaionConfig {
 
     @Autowired
     private AdminMenuService adminMenuService;
-
-
+    @Autowired
+    private LogEntityService logEntityService;
 
     @Pointcut("execution(public * com.example.cbkj_core.controller.*.*(..))")
     public void web(){}
@@ -100,7 +101,8 @@ public class AnnotaionConfig {
             log.setDescr(descpt);
             log.setErrMsg(e.toString());
 
-            System.out.println(JSONObject.toJSON(log).toString());
+            logEntityService.insert(log);
+//            System.out.println(JSONObject.toJSON(log).toString());
         }
     }
 

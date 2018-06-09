@@ -7,7 +7,6 @@ import com.example.cbkj_core.common.Page;
 import com.example.cbkj_core.service.AdminService;
 import com.example.cbkj_core.annotaionUtil.LogAnnotaion;
 import com.example.cbkj_core.annotaionUtil.TokenAnnotaion;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,24 +59,16 @@ public class SysAdminController {
     }
 
     @RequestMapping("admin/insert")
-    @LogAnnotaion(description = "新增管理员")
-    @TokenAnnotaion(submitP = true)
+    @TokenAnnotaion(submitP = true,description = "新增管理员")
     @ResponseBody
-    public Object insert(AdminInfo adminInfo) {
-        ResEntity result = null;
-        try {
-            result = adminService.insert(adminInfo);
-        } catch (Exception e) {
-            result = new ResEntity(false,"服务异常",null);
-        }
+    public Object insert(AdminInfo adminInfo) throws Exception {
+        ResEntity result = adminService.insert(adminInfo);
         return result;
     }
 
 
-
     @RequestMapping("admin/update")
-    @LogAnnotaion(description = "修改管理员")
-    @TokenAnnotaion(submitP = true)
+    @TokenAnnotaion(submitP = true,description = "修改管理员")
     @ResponseBody
     public Object update(AdminInfo adminInfo) {
         ResEntity result = adminService.update(adminInfo);

@@ -4,6 +4,7 @@ import com.example.cbkj_core.beans.LogEntity;
 import com.example.cbkj_core.beans.ResEntity;
 import com.example.cbkj_core.common.AdminUtils;
 import com.example.cbkj_core.common.IDUtil;
+import com.example.cbkj_core.common.Page;
 import com.example.cbkj_core.mapper.LogEntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,4 +25,15 @@ public class LogEntityService {
     }
 
 
+    public Object getPageDatas(LogEntity logEntity, Page page) {
+        return null;
+    }
+
+    public ResEntity deleteLis(String ids) {
+        return null;
+    }
+
+    public ResEntity findObj(String id) {
+        return null;
+    }
 }

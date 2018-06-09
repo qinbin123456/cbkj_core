@@ -49,7 +49,6 @@ public class AdminService implements UserDetailsService {
         PageHelper.startPage(page.getPage(), page.getLimit());
         List<Map<String,Object>> lis = adminInfoMapper.getPageDatas(admin);
         Object result = Page.getLayUiTablePageData(lis);
-
         return result;
     }
 

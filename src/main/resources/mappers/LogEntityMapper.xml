@@ -3,9 +3,8 @@
 <mapper namespace="com.example.cbkj_core.mapper.LogEntityMapper">
 
     <insert id="insert" parameterType="com.example.cbkj_core.beans.LogEntity">
-        insert into logentity (lid,url,httpMethod,ip,className,methodName,
-    ,execuType,status,descr,errMsg,create_date,create_id)
-
+        insert into logentity (lid,url,httpMethod,ip,className,methodName,execuType,status,descr,errMsg,create_date,create_id)
+        values(#{lid},#{url},#{httpMethod},#{ip},#{className},#{methodName},#{execuType},#{status},#{descr},#{errMsg},now(),#{create_id})
     </insert>
 
     <delete id="deleteRuleMenuByRids">
